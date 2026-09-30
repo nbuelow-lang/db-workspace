@@ -1,0 +1,48 @@
+.werkraum-head { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+.werkraum-head h2 { font-size:24px; margin:0 0 6px; }
+.werkraum-head>div { min-width:0; max-width:100%; }
+.werkraum-head p { font-size:14px; line-height:1.6; }
+.werkraum-head .button span { min-width:0; }
+.werkraum-head p,.werkraum-connection,.werkraum-rules p { color:var(--muted,#92969f); }
+.werkraum-connection { font-size:13px; line-height:1.6; max-width:850px; margin:18px 0 24px; }
+.werkraum-metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); padding:22px 0; border-block:1px solid var(--line,#34363c); gap:24px; margin-bottom:24px; }
+.werkraum-metrics div { display:flex; flex-direction:column; gap:5px; min-width:0; }
+.werkraum-metrics strong { font-size:28px; }
+.werkraum-metrics span { font-size:13px; color:var(--muted,#92969f); }
+.werkraum-toolbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+.werkraum-search { flex:1 1 220px; }
+.werkraum-toolbar input,.werkraum-toolbar select { width:100%; min-height:42px; padding:10px 12px; border:1px solid var(--line,#34363c); border-radius:6px; background:var(--surface,#17191d); color:inherit; font:inherit; }
+.werkraum-list { border-top:1px solid var(--line,#34363c); }
+.werkraum-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(130px,170px) minmax(110px,150px) 18px; align-items:center; width:100%; gap:20px; padding:20px 4px; border:0; border-bottom:1px solid var(--line,#34363c); background:transparent; text-align:left; color:inherit; font:inherit; cursor:pointer; }
+.werkraum-row:hover { background:var(--surface,#17191d); }
+.werkraum-main,.werkraum-budget { display:flex; flex-direction:column; gap:7px; min-width:0; overflow-wrap:anywhere; }
+.werkraum-main strong { font-size:16px; }
+.werkraum-main span,.werkraum-main small,.werkraum-budget small { color:var(--muted,#92969f); font-size:12px; }
+.werkraum-budget { text-align:right; }
+.werkraum-fit { font-size:12px; font-weight:600; color:var(--amber,#edab65); }
+.werkraum-fit.fit { color:var(--green,#39bb98); }
+.werkraum-fit.excluded { color:var(--red,#f57d82); }
+.werkraum-rules { margin-top:32px; border-top:1px solid var(--line,#34363c); padding-top:20px; font-size:13px; line-height:1.6; }
+.werkraum-rules h3 { font-size:15px; }
+.werkraum-description,.werkraum-message p { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.6; }
+.werkraum-message { padding:14px 0; border-top:1px solid var(--line,#34363c); }
+.werkraum-message small { color:var(--muted,#92969f); }
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+.finance-responsibilities { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; max-width:760px; }
+.finance-responsibilities dd { margin:0; font-weight:600; }
+.werkraum-rules a { color:var(--ink); text-underline-offset:4px; }
+.werkraum-rules a .icon { width:14px; height:14px; display:inline-block; vertical-align:middle; }
+#viewRoot:focus { outline:none; }
+@media(max-width:940px) {
+  .sidebar:not(.open) { visibility:hidden; box-shadow:none; }
+  .mobile-bottom-nav { grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); }
+  .mobile-bottom-nav [hidden] { display:none; }
+}
+@media(max-width:650px) {
+  .werkraum-row { grid-template-columns:minmax(0,1fr) 100px; gap:12px; }
+  .werkraum-main { grid-column:1/-1; }
+  .werkraum-row>svg { display:none; }
+  .werkraum-metrics { gap:12px; }
+  .werkraum-metrics strong { font-size:24px; }
+  .werkraum-head .button { width:100%; white-space:normal; }
+}
