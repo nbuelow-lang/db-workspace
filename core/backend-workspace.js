@@ -73,14 +73,14 @@ const BackendWorkspace = (() => {
   async function poll() {
     if (!enabled || revision === null || sending || conflict || polling) return;
     if (dirty) {await push();return;}
-    if (MobileHomeSwipe.isActive() || document.querySelector('.workspace-home.is-arranging') || document.activeElement?.matches('input,textarea,select,[contenteditable="true"]') || !document.getElementById('modalBackdrop').hidden) return;
+    if (PullRefresh.isActive() || MobileHomeSwipe.isActive() || document.querySelector('.workspace-home.is-arranging') || document.activeElement?.matches('input,textarea,select,[contenteditable="true"]') || !document.getElementById('modalBackdrop').hidden) return;
     const observedVersion = changeVersion, observedRevision = revision;
     polling = true;
     try {
       const result=await request();
       // A read started before a local edit must never replace that edit.
       if (dirty || sending || changeVersion !== observedVersion || revision !== observedRevision) return;
-      if (MobileHomeSwipe.isActive() || document.querySelector('.workspace-home.is-arranging') || document.activeElement?.matches('input,textarea,select,[contenteditable="true"]') || !document.getElementById('modalBackdrop').hidden) return;
+      if (PullRefresh.isActive() || MobileHomeSwipe.isActive() || document.querySelector('.workspace-home.is-arranging') || document.activeElement?.matches('input,textarea,select,[contenteditable="true"]') || !document.getElementById('modalBackdrop').hidden) return;
       if (result.revision !== revision) {
         if (!result.data) throw Error('Serverdaten fehlen. Kein automatisches Überschreiben.');
         apply(result.data);revision=result.revision;baseline=JSON.stringify(snapshot());render();
@@ -154,5 +154,5 @@ const BackendWorkspace = (() => {
       document.getElementById('backendLoadRetry').hidden=false;
     } finally {starting=false;}
   }
-  return {enabled,prepare,start,schedule,poll,logout};
+  return {enabled,prepare,start,schedule,poll,logout,canReload:()=>!enabled || (revision !== null && !dirty && !sending && !conflict && !starting)};
 })();

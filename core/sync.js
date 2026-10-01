@@ -301,10 +301,15 @@ function mergeWebStateIntoShared() {
   return shared;
 }
 
+let sharedWriteVersion = 0, sharedWritePending = false;
+function sharedRefreshSafe() { return !syncApiUrl || (!sharedWritePending && !state.offlineModeEnabled); }
+
 function scheduleSharedSync() {
   if (state.offlineModeEnabled) return;
   if (!syncApiUrl) return;
   if (!sharedEnvelope) return;
+  sharedWriteVersion++;
+  sharedWritePending = true;
   clearTimeout(sharedSyncTimer);
   sharedSyncTimer = setTimeout(pushSharedState, 450);
 }
@@ -317,6 +322,8 @@ async function pushSharedState() {
   }
   const shared = mergeWebStateIntoShared();
   if (!shared) return;
+  const writeVersion = sharedWriteVersion;
+  sharedWritePending = true;
   setSyncStatus('syncing', 'Synchronisiert ...');
   try {
     const response = await fetch(syncApiUrl, {
@@ -326,6 +333,7 @@ async function pushSharedState() {
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     sharedEnvelope = await response.json();
+    if (writeVersion === sharedWriteVersion) sharedWritePending = false;
     setSyncStatus('online', 'App & Web verbunden');
   } catch (error) {
     setSyncStatus('error', 'Server nicht erreichbar');
@@ -333,6 +341,7 @@ async function pushSharedState() {
 }
 
 async function fetchSharedState() {
+  if (PullRefresh.isActive()) return;
   if (state.offlineModeEnabled) {
     setSyncStatus('error', `Offline · ${state.pendingOfflineChanges || 0} lokal`);
     return;
@@ -349,6 +358,7 @@ async function fetchSharedState() {
     }
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const envelope = await response.json();
+    if (PullRefresh.isActive()) return;
     if (!sharedEnvelope || envelope.revision > sharedEnvelope.revision) {
       const shouldUploadLocalSetup = state.initialSetup?.completed && !envelope.state?.accessProfile?.setupCompleted;
       sharedEnvelope = envelope;
