@@ -1,0 +1,26 @@
+.workspace-focus { padding: 24px 0; border-bottom: 1px solid var(--line); }
+.workspace-focus-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.workspace-focus h3 { margin: 5px 0 0; font-size: 18px; line-height: 1.4; }
+.workspace-focus-kicker,.workspace-focus-note { color: var(--muted); font-size: 12px; }
+.workspace-focus button { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font-size: 13px; padding: 10px 14px; touch-action: manipulation; transition: transform 150ms ease, background 150ms ease; }
+.workspace-focus button:active { transform: scale(.96); }
+.workspace-focus button .icon { width: 18px; height: 18px; flex: 0 0 18px; }
+.workspace-focus-heading > button { padding: 10px; }
+.workspace-focus-track { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.workspace-focus-track button { width: 44px; height: 44px; border-radius: 50%; padding: 0; font-weight: 650; }
+.workspace-focus-track button[aria-pressed="true"] { outline: 2px solid var(--blue); outline-offset: 3px; }
+.workspace-focus-track button.is-done { background: #13784b; color: #fff; border-color: #13784b; }
+.workspace-focus-track > span { color: var(--muted); font-size: 13px; margin-left: 4px; }
+.workspace-focus-body { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 16px; }
+.workspace-focus-copy { min-width: 0; }
+.workspace-focus-copy strong { display: block; font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+.workspace-focus-copy p { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 5px 0 0; overflow-wrap: anywhere; }
+.workspace-focus-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; flex-shrink: 0; }
+.workspace-focus .focus-primary { background: var(--blue); border-color: var(--blue); color: #111800; font-weight: 650; }
+html[data-theme="light"] .workspace-focus .focus-primary { color: #fff; }
+.workspace-focus.has-progress .is-done { animation: focus-check 480ms ease both; }
+@keyframes focus-check { 0% { transform: scale(.75); } 60% { transform: scale(1.12); } 100% { transform: scale(1); } }
+.workspace-home.is-searching .workspace-focus { display: none; }
+@media (max-width: 700px) { .workspace-focus-body { align-items: stretch; flex-direction: column; gap: 14px; } .workspace-focus-actions { width: 100%; } .workspace-focus-actions .focus-primary { flex: 1; } }
+@media (prefers-reduced-motion: reduce) { .workspace-focus.has-progress .is-done { animation: none; } .workspace-focus button { transition: none; } .workspace-focus button:active { transform: none; } }
+@media (forced-colors: active) { .workspace-focus-track button.is-done { border: 2px solid ButtonText; } }
