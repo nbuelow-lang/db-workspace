@@ -203,5 +203,5 @@ const MobileHomeSwipe = (() => {
       overlays.observe(element,{attributes:true,attributeFilter:['hidden','class']}));
     refresh();
   }
-  return {init,refresh,cancel,isActive:()=>Boolean(gesture) || HomeReveal.isCommitting()};
+  return {init,refresh,cancel,hasDraft,isActive:()=>Boolean(gesture) || HomeReveal.isCommitting()};
 })();

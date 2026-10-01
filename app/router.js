@@ -19,6 +19,7 @@ function setPageMeta(eyebrow, title) {
 }
 
 function render() {
+  PullRefresh.cancel();
   MobileHomeSwipe.cancel();
   WorkspaceArrange.beforeRender();
   const root = document.getElementById('viewRoot');
