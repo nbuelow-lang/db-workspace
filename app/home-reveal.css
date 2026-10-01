@@ -1,0 +1,16 @@
+.home-reveal {
+  position: fixed; inset: 0; z-index: 221; overflow: hidden;
+  background: var(--blue); pointer-events: none; visibility: hidden;
+  clip-path: circle(0px at 50% 100%); contain: layout paint;
+}
+.home-reveal * { pointer-events: none !important; }
+.home-reveal-frame {
+  position: absolute; inset: 0; padding-top: var(--language-bar-offset);
+  background: var(--surface-2); overflow: hidden; opacity: 0;
+}
+.home-reveal-frame > .topbar { position: relative; top: 0; }
+.home-reveal-frame .notification-dot { top: -5px; right: -5px; }
+.home-reveal-frame .workspace-focus.has-progress { animation: none; }
+@media (min-width: 941px), (prefers-reduced-motion: reduce) {
+  .home-reveal { display: none; }
+}
