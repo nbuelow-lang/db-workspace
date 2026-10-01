@@ -1,6 +1,6 @@
 # Buelow & Dolz - Web Demo
 
-[Open the current test version](https://nbuelow-lang.github.io/gep-flex/?preview=admin&v=20261001-liquid-grip4)
+[Open the current test version](https://nbuelow-lang.github.io/db-workspace/?preview=admin&v=20261001-liquid-grip4)
 
 Responsive browser-local demonstration with synthetic example data. The admin
 preview is a UI test mode, not authentication or production authorization.
