@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0c1011">
   <meta name="description" content="Bülow & Dolz – Web-Demo für Elektrotechnik, Projektorganisation und Installationspartner.">
-  <meta name="bd-release" content="2026-10-01-liquid-grip4">
+  <meta name="bd-release" content="2026-10-01-pull-refresh1">
   <title>Bülow & Dolz</title>
   <link rel="stylesheet" href="features/leads/werkraum.css">
   <script>
@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="app/mobile-home-swipe.css?v=20261001-reveal1">
   <link rel="stylesheet" href="app/home-reveal.css?v=20261001-reveal1">
   <link rel="stylesheet" href="app/mobile-sidebar.css?v=20261001-grip4">
+  <link rel="stylesheet" href="app/pull-refresh.css?v=20261001">
   <link rel="stylesheet" href="features/communication/notification-center.css?v=20261001">
   <link rel="stylesheet" href="core/backend-workspace.css">
 </head>
@@ -104,6 +105,10 @@
     </aside>
 
     <section class="main-area">
+      <div class="pull-refresh" id="pullRefresh" role="status" aria-live="polite" aria-atomic="true">
+        <span class="pull-refresh-icon" aria-hidden="true" data-icon="refresh"></span>
+        <span class="pull-refresh-label"></span>
+      </div>
       <header class="topbar">
         <button class="mobile-menu" id="mobileMenu" aria-label="Navigation öffnen" aria-controls="mainSidebar" aria-expanded="false">
           <span data-icon="menu"></span>
@@ -186,7 +191,7 @@
 
   <link rel="stylesheet" href="features/identity/admin-preview.css">
   <script src="features/identity/admin-preview.js"></script>
-  <script src="core/backend-workspace.js"></script>
+  <script src="core/backend-workspace.js?v=20261001-refresh"></script>
   <script src="features/leads/werkraum-core.js"></script>
   <script src="features/leads/werkraum.js"></script>
   <script src="features/finance/finance.js?v=20261001-reveal1"></script>
@@ -195,10 +200,10 @@
   <script src="core/format.js"></script>
   <script src="fixtures/demo-data.js"></script>
   <script src="core/storage.js"></script>
-  <script src="core/sync.js"></script>
+  <script src="core/sync.js?v=20261001-refresh"></script>
   <script src="features/onboarding/onboarding.js"></script>
   <script src="features/projects/scoring.js"></script>
-  <script src="app/router.js?v=20261001-sidebar1"></script>
+  <script src="app/router.js?v=20261001-refresh"></script>
   <script src="features/identity/account.js"></script>
   <script src="features/projects/projects.js"></script>
   <script src="features/intelligence/intelligence.js"></script>
@@ -214,9 +219,10 @@
   <script src="features/communication/notification-model.js?v=20261001"></script>
   <script src="features/communication/notifications.js?v=20261001-reveal1"></script>
   <script src="app/home-reveal.js?v=20261001-reveal1"></script>
-  <script src="app/mobile-home-swipe.js?v=20261001-reveal1"></script>
+  <script src="app/mobile-home-swipe.js?v=20261001-refresh"></script>
   <script src="app/sidebar-liquid.js?v=20261001-glass1"></script>
   <script src="app/mobile-sidebar.js?v=20261001-grip4"></script>
-  <script src="app/bootstrap.js?v=20261001-sidebar1"></script>
+  <script src="app/pull-refresh.js?v=20261001"></script>
+  <script src="app/bootstrap.js?v=20261001-refresh"></script>
 </body>
 </html>

@@ -34,6 +34,7 @@ const syncApiUrl = (BackendWorkspace.enabled || AdminPreview.enabled || isGitHub
 WorkspaceArrange.init();
 MobileHomeSwipe.init();
 MobileSidebar.init();
+PullRefresh.init();
 document.addEventListener('error', handleWorkspaceImageError, true);
 
 document.addEventListener('click', (event) => {
