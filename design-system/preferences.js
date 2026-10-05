@@ -1,14 +1,14 @@
 // Extracted without behavior changes; see Docs/Modules for ownership.
 const availableLanguages = [
   { code: 'de', title: 'Deutsch', flag: '🇩🇪' },
-  { code: 'en', title: 'Englisch', flag: '🇬🇧' },
-  { code: 'pl', title: 'Polnisch', flag: '🇵🇱' },
-  { code: 'cs', title: 'Tschechisch', flag: '🇨🇿' },
-  { code: 'sk', title: 'Slowakisch', flag: '🇸🇰' },
-  { code: 'sl', title: 'Slowenisch', flag: '🇸🇮' },
-  { code: 'hu', title: 'Ungarisch', flag: '🇭🇺' },
-  { code: 'uk', title: 'Ukrainisch', flag: '🇺🇦' },
-  { code: 'ru', title: 'Russisch', flag: '🇷🇺' }
+  { code: 'en', title: 'English', flag: '🇬🇧' },
+  { code: 'pl', title: 'Polski', flag: '🇵🇱' },
+  { code: 'cs', title: 'Čeština', flag: '🇨🇿' },
+  { code: 'sk', title: 'Slovenčina', flag: '🇸🇰' },
+  { code: 'sl', title: 'Slovenščina', flag: '🇸🇮' },
+  { code: 'hu', title: 'Magyar', flag: '🇭🇺' },
+  { code: 'uk', title: 'Українська', flag: '🇺🇦' },
+  { code: 'ru', title: 'Русский', flag: '🇷🇺' }
 ];
 
 function renderLanguageControl() {
@@ -55,8 +55,11 @@ function selectLanguage(code) {
   const selected = availableLanguages.find((language) => language.code === code);
   if (!selected) return;
   state.language = selected.code;
-  localStorage.setItem(AdminPreview.storageKey, JSON.stringify(state));
+  // Server accounts keep the choice per person on this device; demo state keeps its own store.
+  if (BackendWorkspace.enabled) BackendWorkspace.rememberLanguage(selected.code);
+  else localStorage.setItem(AdminPreview.storageKey, JSON.stringify(state));
   renderLanguageControl();
   toggleLanguageMenu(false);
-  showToast('Sprache ausgewaehlt', `${selected.flag} ${selected.title}`, 'success');
+  render();
+  showToast(`${selected.flag} ${selected.title}`, I18n.translated() ? I18n.t('Sprache ausgewählt') : 'Übersetzung folgt – die Oberfläche bleibt vorerst Deutsch.', 'success');
 }

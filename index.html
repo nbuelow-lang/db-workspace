@@ -17,15 +17,24 @@
   </script>
   <link rel="stylesheet" href="design-system/legacy.css?v=20261001-mobile-dialogs">
   <link rel="stylesheet" href="design-system/electrical-brand.css">
-  <link rel="stylesheet" href="features/dashboard/workspace.css?v=20261001-retina">
+  <link rel="stylesheet" href="features/dashboard/workspace.css?v=20261005-apps">
   <link rel="stylesheet" href="features/dashboard/workspace-arrange.css?v=20261001">
   <link rel="stylesheet" href="features/dashboard/workspace-focus.css?v=20261001">
-  <link rel="stylesheet" href="app/mobile-home-swipe.css?v=20261001-reveal1">
+  <link rel="stylesheet" href="features/intelligence/assistant.css?v=20261005b">
+  <link rel="stylesheet" href="features/academy/academy.css?v=20261005">
+  <link rel="stylesheet" href="app/mobile-home-swipe.css?v=20261005-house">
   <link rel="stylesheet" href="app/home-reveal.css?v=20261001-reveal1">
   <link rel="stylesheet" href="app/mobile-sidebar.css?v=20261001-grip4">
   <link rel="stylesheet" href="app/pull-refresh.css?v=20261001">
-  <link rel="stylesheet" href="features/communication/notification-center.css?v=20261001">
+  <link rel="stylesheet" href="features/communication/notification-center.css?v=20261005-ios6">
   <link rel="stylesheet" href="core/backend-workspace.css">
+  <link rel="stylesheet" href="features/quality/acceptance-server.css?v=20261004">
+  <link rel="stylesheet" href="features/projects/orders.css?v=20261004-test">
+  <link rel="stylesheet" href="features/projects/project-ring.css?v=20261005e">
+  <link rel="stylesheet" href="features/projects/schedule.css?v=20261005">
+  <link rel="stylesheet" href="features/projects/customers.css?v=20261005">
+  <link rel="stylesheet" href="features/quality/instruments.css?v=20261005">
+  <link rel="stylesheet" href="features/execution/timesheet.css?v=20261005b">
 </head>
 <body>
   <div class="global-language-bar" aria-label="Sprachauswahl">
@@ -43,14 +52,14 @@
       </button>
       <div class="language-options" id="languageMenu" role="menu" hidden>
         <button class="language-option" type="button" role="menuitemradio" data-language="de"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇩🇪</span>Deutsch</span><span class="language-option-check"></span></button>
-        <button class="language-option" type="button" role="menuitemradio" data-language="en"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇬🇧</span>Englisch</span><span class="language-option-check"></span></button>
-        <button class="language-option" type="button" role="menuitemradio" data-language="pl"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇵🇱</span>Polnisch</span><span class="language-option-check"></span></button>
-        <button class="language-option" type="button" role="menuitemradio" data-language="cs"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇨🇿</span>Tschechisch</span><span class="language-option-check"></span></button>
-        <button class="language-option" type="button" role="menuitemradio" data-language="sk"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇸🇰</span>Slowakisch</span><span class="language-option-check"></span></button>
-        <button class="language-option" type="button" role="menuitemradio" data-language="sl"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇸🇮</span>Slowenisch</span><span class="language-option-check"></span></button>
-        <button class="language-option" type="button" role="menuitemradio" data-language="hu"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇭🇺</span>Ungarisch</span><span class="language-option-check"></span></button>
-        <button class="language-option" type="button" role="menuitemradio" data-language="uk"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇺🇦</span>Ukrainisch</span><span class="language-option-check"></span></button>
-        <button class="language-option" type="button" role="menuitemradio" data-language="ru"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇷🇺</span>Russisch</span><span class="language-option-check"></span></button>
+        <button class="language-option" type="button" role="menuitemradio" data-language="en"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇬🇧</span>English</span><span class="language-option-check"></span></button>
+        <button class="language-option" type="button" role="menuitemradio" data-language="pl"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇵🇱</span>Polski</span><span class="language-option-check"></span></button>
+        <button class="language-option" type="button" role="menuitemradio" data-language="cs"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇨🇿</span>Čeština</span><span class="language-option-check"></span></button>
+        <button class="language-option" type="button" role="menuitemradio" data-language="sk"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇸🇰</span>Slovenčina</span><span class="language-option-check"></span></button>
+        <button class="language-option" type="button" role="menuitemradio" data-language="sl"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇸🇮</span>Slovenščina</span><span class="language-option-check"></span></button>
+        <button class="language-option" type="button" role="menuitemradio" data-language="hu"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇭🇺</span>Magyar</span><span class="language-option-check"></span></button>
+        <button class="language-option" type="button" role="menuitemradio" data-language="uk"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇺🇦</span>Українська</span><span class="language-option-check"></span></button>
+        <button class="language-option" type="button" role="menuitemradio" data-language="ru"><span class="language-option-name"><span class="language-option-flag" aria-hidden="true">🇷🇺</span>Русский</span><span class="language-option-check"></span></button>
       </div>
     </div>
   </div>
@@ -85,18 +94,24 @@
       </div>
 
       <nav class="nav-list" aria-label="Arbeitsbereiche">
-        <button class="nav-item active" data-view="dashboard"><span class="nav-icon" data-icon="grid"></span><span>Arbeitsplatz</span></button>
-        <button class="nav-item" data-view="werkraum"><span class="nav-icon" data-icon="briefcase"></span><span>Anfragen</span></button>
-        <button class="nav-item" data-view="control" data-role-nav="internal"><span class="nav-icon" data-icon="layers"></span><span>Projekte</span></button>
-        <button class="nav-item" data-view="projects"><span class="nav-icon" data-icon="layers"></span><span>Meine Projekte</span></button>
-        <button class="nav-item" data-view="acceptance"><span class="nav-icon" data-icon="clipboard-check"></span><span>Abnahmen</span><span class="nav-badge" id="acceptanceBadge">0</span></button>
-        <button class="nav-item" data-view="chats"><span class="nav-icon" data-icon="mail"></span><span>Nachrichten</span><span class="nav-badge" id="chatBadge">0</span></button>
-        <button class="nav-item" data-view="finance"><span class="nav-icon" data-icon="euro"></span><span>Finanzen</span></button>
-        <button class="nav-item" data-view="partners"><span class="nav-icon" data-icon="users"></span><span>Partner</span></button>
-        <button class="nav-item" data-view="marketplace"><span class="nav-icon" data-icon="briefcase"></span><span>Marktplatz</span><span class="nav-badge" id="marketBadge">0</span></button>
-        <button class="nav-item" data-view="onboarding"><span class="nav-icon" data-icon="user-check"></span><span>Onboarding</span><span class="nav-badge" id="onboardingBadge">0%</span></button>
-        <button class="nav-item" data-view="smartops"><span class="nav-icon" data-icon="zap"></span><span>Assistenz</span><span class="nav-badge" id="smartBadge">0</span></button>
-        <button class="nav-item" data-view="imports" data-role-nav="admin"><span class="nav-icon" data-icon="upload"></span><span>Import</span><span class="nav-badge" id="importBadge">0</span></button>
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon" data-icon="grid"></span><span data-i18n="Arbeitsplatz">Arbeitsplatz</span></button>
+        <button class="nav-item" data-view="werkraum"><span class="nav-icon" data-icon="briefcase"></span><span data-i18n="Anfragen">Anfragen</span></button>
+        <button class="nav-item" data-view="control" data-role-nav="internal"><span class="nav-icon" data-icon="layers"></span><span data-i18n="Projekte">Projekte</span></button>
+        <button class="nav-item" data-view="schedule" hidden><span class="nav-icon" data-icon="calendar"></span><span data-i18n="Einsatzplan">Einsatzplan</span></button>
+        <button class="nav-item" data-view="time" hidden><span class="nav-icon" data-icon="clock"></span><span data-i18n="Arbeitszeit">Arbeitszeit</span></button>
+        <button class="nav-item" data-view="customers" hidden><span class="nav-icon" data-icon="users"></span><span data-i18n="Kunden">Kunden</span></button>
+        <button class="nav-item" data-view="orders" hidden><span class="nav-icon" data-icon="hard-hat"></span><span data-i18n="Aufträge">Aufträge</span></button>
+        <button class="nav-item" data-view="projects"><span class="nav-icon" data-icon="layers"></span><span data-i18n="Meine Projekte">Meine Projekte</span></button>
+        <button class="nav-item" data-view="acceptance"><span class="nav-icon" data-icon="clipboard-check"></span><span data-i18n="Abnahmen">Abnahmen</span><span class="nav-badge" id="acceptanceBadge">0</span></button>
+        <button class="nav-item" data-view="chats"><span class="nav-icon" data-icon="mail"></span><span data-i18n="Nachrichten">Nachrichten</span><span class="nav-badge" id="chatBadge">0</span></button>
+        <button class="nav-item" data-view="finance"><span class="nav-icon" data-icon="euro"></span><span data-i18n="Finanzen">Finanzen</span></button>
+        <button class="nav-item" data-view="partners"><span class="nav-icon" data-icon="users"></span><span data-i18n="Partner">Partner</span></button>
+        <button class="nav-item" data-view="marketplace"><span class="nav-icon" data-icon="briefcase"></span><span data-i18n="Marktplatz">Marktplatz</span><span class="nav-badge" id="marketBadge">0</span></button>
+        <button class="nav-item" data-view="onboarding"><span class="nav-icon" data-icon="user-check"></span><span data-i18n="Onboarding">Onboarding</span><span class="nav-badge" id="onboardingBadge">0%</span></button>
+        <button class="nav-item" data-view="smartops"><span class="nav-icon" data-icon="bar-chart"></span><span data-i18n="Morning Control">Morning Control</span><span class="nav-badge" id="smartBadge">0</span></button>
+        <button class="nav-item" data-view="instruments" hidden><span class="nav-icon" data-icon="gauge"></span><span data-i18n="Prüfmittel">Prüfmittel</span></button>
+        <button class="nav-item" data-view="academy"><span class="nav-icon" data-icon="book"></span><span data-i18n="Academy">Academy</span></button>
+        <button class="nav-item" data-view="imports" data-role-nav="admin"><span class="nav-icon" data-icon="upload"></span><span data-i18n="Import">Import</span><span class="nav-badge" id="importBadge">0</span></button>
       </nav>
 
       <div class="sidebar-footer">
@@ -123,17 +138,17 @@
             <span id="syncStatusText">Verbinde ...</span>
           </div>
           <div class="role-control">
-            <label for="roleSelect">Ansicht</label>
+            <label for="roleSelect" data-i18n="Ansicht">Ansicht</label>
             <select id="roleSelect">
-              <option value="partner">Subunternehmen</option>
-              <option value="admin">Geschäftsführung</option>
-              <option value="finance">Finanzen</option>
-              <option value="pm">Projektmanagement</option>
-              <option value="sales">Externer Vertrieb</option>
-              <option value="quality">Bauleiter / QM</option>
+              <option value="partner" data-i18n="Subunternehmen">Subunternehmen</option>
+              <option value="admin" data-i18n="Geschäftsführung">Geschäftsführung</option>
+              <option value="finance" data-i18n="Finanzen">Finanzen</option>
+              <option value="pm" data-i18n="Projektmanagement">Projektmanagement</option>
+              <option value="sales" data-i18n="Externer Vertrieb">Externer Vertrieb</option>
+              <option value="quality" data-i18n="Bauleiter / QM">Bauleiter / QM</option>
             </select>
           </div>
-          <button class="notification-button" id="notificationButton" aria-label="Benachrichtigungen">
+          <button class="notification-button" id="notificationButton" aria-label="Benachrichtigungen" data-i18n-label="Benachrichtigungen">
             <span data-icon="bell"></span>
             <span class="notification-dot" aria-hidden="true" hidden></span>
           </button>
@@ -155,20 +170,23 @@
       <main class="content" id="viewRoot" tabindex="-1"></main>
 
       <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-back" id="mobileBackButton" aria-label="Zurück" title="Zurück" hidden><span data-icon="arrow-left"></span></button>
         <button type="button" class="mobile-home-grip" id="mobileHomeGrip" aria-label="Zum Arbeitsplatz" title="Zum Arbeitsplatz">
           <span aria-hidden="true"></span>
           <svg class="home-grip-liquid" viewBox="0 0 160 160" aria-hidden="true" focusable="false">
             <path class="home-grip-neck"></path>
             <ellipse class="home-grip-anchor" cx="80" cy="120" rx="52" ry="4"></ellipse>
             <circle class="home-grip-drop" cx="80" cy="94" r="26"></circle>
+            <ellipse class="home-grip-shine" cx="70.6" cy="83.6" rx="7.8" ry="4.7"></ellipse>
+            <g class="home-grip-house" transform="translate(66.3 80.3) scale(1.14)"><path d="m3 11 9-8 9 8"/><path d="M5 10v11h14V10M9 21v-7h6v7"/></g>
           </svg>
         </button>
-        <button class="mobile-nav-item active" data-view="dashboard"><span data-icon="grid"></span><span>Start</span></button>
-        <button class="mobile-nav-item" data-view="werkraum"><span data-icon="briefcase"></span><span>Anfragen</span></button>
-        <button class="mobile-nav-item" data-view="control"><span data-icon="layers"></span><span>Projekte</span></button>
-        <button class="mobile-nav-item" data-view="projects"><span data-icon="layers"></span><span>Projekte</span></button>
-        <button class="mobile-nav-item" data-view="chats"><span data-icon="mail"></span><span>Nachrichten</span></button>
-        <button class="mobile-nav-item" data-view="finance"><span data-icon="euro"></span><span>Finanzen</span></button>
+        <button class="mobile-nav-item active" data-view="dashboard"><span data-icon="grid"></span><span data-i18n="Start">Start</span></button>
+        <button class="mobile-nav-item" data-view="werkraum"><span data-icon="briefcase"></span><span data-i18n="Anfragen">Anfragen</span></button>
+        <button class="mobile-nav-item" data-view="control"><span data-icon="layers"></span><span data-i18n="Projekte">Projekte</span></button>
+        <button class="mobile-nav-item" data-view="projects"><span data-icon="layers"></span><span data-i18n="Projekte">Projekte</span></button>
+        <button class="mobile-nav-item" data-view="academy"><span data-icon="book"></span><span data-i18n="Academy">Academy</span></button>
+        <button class="mobile-nav-item" data-view="finance"><span data-icon="euro"></span><span data-i18n="Finanzen">Finanzen</span></button>
       </nav>
     </section>
   </div>
@@ -188,41 +206,62 @@
   </div>
 
   <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <!-- Companion (features/intelligence/assistant.js): always reachable, opens a small panel. -->
+  <button type="button" class="assist-fab" id="assistantFab" aria-haspopup="dialog" aria-expanded="false" aria-controls="assistantPanel" aria-label="Assistenz öffnen" hidden>
+    <img src="assets/workspace-icons/retina-v1/assistant-128.webp?v=1" srcset="assets/workspace-icons/retina-v1/assistant-128.webp?v=1 128w, assets/workspace-icons/retina-v1/assistant-256.webp?v=1 256w" sizes="56px" width="56" height="56" alt="" draggable="false">
+    <span class="assist-fab-badge" aria-hidden="true" hidden></span>
+  </button>
+  <section class="assist-panel" id="assistantPanel" role="dialog" aria-modal="false" aria-labelledby="assistantPanelTitle" hidden></section>
 
   <link rel="stylesheet" href="features/identity/admin-preview.css">
+  <script src="design-system/i18n-uk.js?v=20261005-time"></script>
+  <script src="design-system/i18n.js?v=20261005-ios"></script>
   <script src="features/identity/admin-preview.js"></script>
-  <script src="core/backend-workspace.js?v=20261001-refresh"></script>
+  <script src="core/backend-workspace.js?v=20261004-login"></script>
   <script src="features/leads/werkraum-core.js"></script>
   <script src="features/leads/werkraum.js"></script>
   <script src="features/finance/finance.js?v=20261001-reveal1"></script>
-  <script src="design-system/icons.js"></script>
-  <script src="design-system/preferences.js"></script>
+  <script src="design-system/icons.js?v=20261005-faces"></script>
+  <script src="design-system/preferences.js?v=20261004-uk"></script>
   <script src="core/format.js"></script>
   <script src="fixtures/demo-data.js"></script>
   <script src="core/storage.js"></script>
   <script src="core/sync.js?v=20261001-refresh"></script>
   <script src="features/onboarding/onboarding.js"></script>
   <script src="features/projects/scoring.js"></script>
-  <script src="app/router.js?v=20261001-refresh"></script>
-  <script src="features/identity/account.js"></script>
+  <script src="app/router.js?v=20261005-time"></script>
+  <script src="features/identity/account.js?v=20261004-uk"></script>
   <script src="features/projects/projects.js"></script>
-  <script src="features/intelligence/intelligence.js"></script>
-  <script src="features/dashboard/dashboard.js?v=20261001-reveal1"></script>
-  <script src="features/dashboard/workspace.js?v=20261001-reveal1"></script>
+  <script src="features/intelligence/intelligence.js?v=20261005-assist"></script>
+  <script src="features/intelligence/assistant.js?v=20261005-time"></script>
+  <script src="features/academy/academy.js?v=20261005"></script>
+  <script src="features/dashboard/dashboard.js?v=20261004-uk"></script>
+  <script src="features/dashboard/workspace.js?v=20261005-apps"></script>
   <script src="features/dashboard/workspace-arrange.js?v=20261001"></script>
-  <script src="features/dashboard/workspace-focus.js?v=20261001-reveal1"></script>
+  <script src="features/dashboard/workspace-focus.js?v=20261004-uk"></script>
   <script src="features/communication/messages.js"></script>
-  <script src="features/quality/quality.js?v=20261001-reveal1"></script>
-  <script src="design-system/components.js"></script>
+  <script src="features/quality/quality.js?v=20261004-abnahme"></script>
+  <script src="features/quality/acceptance-server.js?v=20261004-test"></script>
+  <script src="features/projects/order-load.js?v=20261004"></script>
+  <script src="features/projects/inspection.js?v=20261005-apps"></script>
+  <script src="features/projects/project-ring.js?v=20261005b"></script>
+  <script src="features/projects/orders.js?v=20261005-time"></script>
+  <script src="features/projects/schedule.js?v=20261005b"></script>
+  <script src="features/projects/customers.js?v=20261005"></script>
+  <script src="features/quality/instruments.js?v=20261005"></script>
+  <script src="features/execution/timesheet.js?v=20261005b"></script>
+  <script src="design-system/components.js?v=20261005-ios"></script>
   <script src="features/projects/marketplace.js"></script>
   <script src="features/partners/partners.js"></script>
-  <script src="features/communication/notification-model.js?v=20261001"></script>
-  <script src="features/communication/notifications.js?v=20261001-reveal1"></script>
+  <script src="features/communication/notification-model.js?v=20261005-time"></script>
+  <script src="features/communication/notifications.js?v=20261005-time"></script>
+  <script src="features/communication/notification-gestures.js?v=20261005b"></script>
   <script src="app/home-reveal.js?v=20261001-reveal1"></script>
-  <script src="app/mobile-home-swipe.js?v=20261001-refresh"></script>
+  <script src="app/mobile-home-swipe.js?v=20261005-house"></script>
+  <script src="app/mobile-back.js?v=20261004"></script>
   <script src="app/sidebar-liquid.js?v=20261001-glass1"></script>
   <script src="app/mobile-sidebar.js?v=20261001-grip4"></script>
-  <script src="app/pull-refresh.js?v=20261001"></script>
-  <script src="app/bootstrap.js?v=20261001-refresh"></script>
+  <script src="app/pull-refresh.js?v=20261004"></script>
+  <script src="app/bootstrap.js?v=20261005-time"></script>
 </body>
 </html>

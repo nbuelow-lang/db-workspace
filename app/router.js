@@ -1,5 +1,6 @@
 // Extracted without behavior changes; see Docs/Modules for ownership.
 function setView(view) {
+  if (view !== state.view) MobileBack.record();
   MobileSidebar.close(false);
   state.view = view;
   if (view === 'chats' && state.role !== 'finance') {
@@ -29,14 +30,20 @@ function render() {
     finance: renderFinance,
     werkraum: renderWerkraum,
     dashboard: renderDashboard,
-    smartops: renderSmartOperations,
-    control: renderProjectControl,
+    smartops: () => Assistant.renderBriefing(),
+    academy: renderAcademy,
+    schedule: () => Schedule.render(),
+    customers: () => Customers.render(),
+    instruments: () => ServerInstruments.render(),
+    time: () => ServerTime.render(),
+    control: role => ServerOrders.enabled ? ProjectRing.render() : renderProjectControl(role),
     imports: renderImports,
     chats: renderChats,
     onboarding: renderOnboarding,
     marketplace: renderMarketplace,
     projects: renderProjects,
     acceptance: renderAcceptance,
+    orders: () => ServerOrders.renderView(),
     partners: renderPartners
   };
   root.innerHTML = (views[state.view] || renderDashboard)(role);
@@ -44,9 +51,12 @@ function render() {
   WorkspaceArrange.mount();
   updateBadges();
   renderInitialSetupGate();
+  Assistant.refresh();
   updateSetupProfileChrome();
   renderLanguageControl();
   MobileHomeSwipe.refresh();
+  MobileBack.refresh();
+  I18n.apply();
   document.getElementById('adminPreviewBar').hidden = !AdminPreview.enabled;
   document.getElementById('adminPreviewLabel').textContent = state.role === 'admin'
     ? 'Testmodus · Geschäftsführung' : 'Testmodus · ' + document.getElementById('roleSelect').selectedOptions[0].textContent;
@@ -60,6 +70,11 @@ function updateRoleNavigation() {
     werkraum: ['admin', 'pm', 'quality'].includes(role),
     dashboard: true,
     smartops: true,
+    academy: true,
+    schedule: ServerOrders.enabled,
+    customers: ServerOrders.enabled,
+    instruments: ServerOrders.enabled,
+    time: ServerOrders.enabled,
     control: role === 'admin' || role === 'pm',
     imports: role === 'admin',
     chats: true,
@@ -67,7 +82,8 @@ function updateRoleNavigation() {
     marketplace: role === 'partner' || role === 'sales' || role === 'admin',
     projects: role !== 'admin' && role !== 'pm',
     acceptance: role === 'partner' || role === 'admin' || role === 'quality' || role === 'pm',
-    partners: role === 'admin'
+    partners: role === 'admin',
+    orders: ServerOrders.enabled
   };
   if (role === 'finance') Object.keys(allowed).forEach(view => { allowed[view] = view === 'finance'; });
   document.querySelectorAll('.nav-list [data-view], .mobile-bottom-nav [data-view]').forEach(button => {
@@ -84,24 +100,34 @@ function updateBadges() {
   const marketBadge = document.getElementById('marketBadge');
   if (marketBadge) marketBadge.textContent = String(availableProjects().length);
   const acceptanceBadge = document.getElementById('acceptanceBadge');
-  if (acceptanceBadge) acceptanceBadge.textContent = String(acceptanceQueue.length);
+  if (acceptanceBadge) acceptanceBadge.textContent = String(ServerAcceptance.enabled ? ServerAcceptance.openCount() : acceptanceQueue.length);
   const importBadge = document.getElementById('importBadge');
   if (importBadge) importBadge.textContent = String((state.operations?.importCandidates || []).filter(item => ['Importbereit', 'Prüfung nötig'].includes(item.status)).length);
   const chatBadge = document.getElementById('chatBadge');
   if (chatBadge) chatBadge.textContent = String((state.operations?.projectMessages || []).filter(message => !message.isRead && message.senderName !== state.initialSetup?.fullName).length);
   const smartBadge = document.getElementById('smartBadge');
-  if (smartBadge) smartBadge.textContent = String(smartCriticalCount());
+  if (smartBadge) smartBadge.textContent = String(Assistant.badgeCount());
+  Assistant.refresh();
   updateNotificationBadges();
 }
 
 function handleAction(action, target) {
   if (action.startsWith('focus-')) { WorkspaceFocus.action(action, target); return; }
   if (action.startsWith('nc-')) { notificationCenterAction(action, target); return; }
+  if (action.startsWith('sa-')) { ServerAcceptance.action(action, target); return; }
+  if (action.startsWith('so-')) { ServerOrders.action(action, target); return; }
+  if (action.startsWith('as-')) { Assistant.action(action, target); return; }
+  if (action.startsWith('pr-')) { ProjectRing.action(action, target); return; }
+  if (action.startsWith('sc-')) { Schedule.action(action, target); return; }
+  if (action.startsWith('cu-')) { Customers.action(action, target); return; }
+  if (action.startsWith('pm-')) { ServerInstruments.action(action, target); return; }
+  if (action.startsWith('tm-')) { ServerTime.action(action, target); return; }
   if (action === 'lexware-verify') { checkLexware(); return; }
   if (action.startsWith('werkraum-')) { werkraumAction(action, target); return; }
   const dataset = target.dataset;
   switch (action) {
-    case 'goto': setView(dataset.target); break;
+    case 'goto': if (!document.getElementById('modalBackdrop').hidden) closeModal(); setView(dataset.target); break;
+    case 'workspace-folder': showWorkspaceFolder(dataset.target); break;
     case 'smart-module': showSmartModule(dataset.module); break;
     case 'smart-update': updateSmartItem(dataset.collection,dataset.item,dataset.status,dataset.module); break;
     case 'offline-toggle': {

@@ -1,4 +1,5 @@
-// Extracted without behavior changes; see Docs/Modules for ownership.
+// Detail dialogs for workspace records (deviations, photo gates, billing …) opened from notifications.
+// The Assistenz page itself is the briefing in assistant.js; the former twelve demo tiles were removed from the UI.
 const smartModules = [
   { id:'copilot', title:'Baustellen-Copilot', icon:'zap', detail:'Nächste Schritte, Risiken und Tagesablauf auf der Baustelle.' },
   { id:'photo', title:'KI-gestützte Foto-Gates', icon:'camera', detail:'Pflichtmotive und Bildqualität vor der QM-Prüfung kontrollieren.' },
@@ -10,58 +11,8 @@ const smartModules = [
   { id:'deviations', title:'Abweichungen & Eskalationen', icon:'alert', detail:'STOP-Regeln, Verantwortliche, Fristen und Eskalationen steuern.' },
   { id:'billing', title:'Automatische Abrechnung', icon:'euro', detail:'Nach bestandener QM-Abnahme automatisch abrechnungsbereit.' },
   { id:'livefile', title:'Live-Projektakte', icon:'file', detail:'Status, Chats, Foto-Gates und Entscheidungen in einem Zeitstrahl.' },
-  { id:'academy', title:'Adaptive Flex Academy', icon:'book', detail:'Trainings aus Qualitätsbefunden und Teamprofilen priorisieren.' },
-  { id:'morning', title:'Morning Control', icon:'bar-chart', detail:'Entscheidungsbriefing für Administration und Geschäftsführung.' }
+  { id:'academy', title:'Adaptive Flex Academy', icon:'book', detail:'Trainings aus Qualitätsbefunden und Teamprofilen priorisieren.' }
 ];
-
-function smartCriticalCount() {
-  return (state.deviationCases || []).filter(item => item.status !== 'Erledigt' && item.priority === 'Kritisch').length
-    + (state.photoGateAssessments || []).filter(item => ['QM-Prüfung nötig','Nacharbeit'].includes(item.status)).length;
-}
-
-function smartModuleCount(id) {
-  const maps = {
-    copilot: (state.copilotTasks || []).filter(item => item.status !== 'Erledigt').length,
-    photo: (state.photoGateAssessments || []).filter(item => item.status !== 'Bestanden').length,
-    autopilot: (state.autopilotProposals || []).filter(item => !['Ausgeführt','Erledigt'].includes(item.status)).length,
-    matching: (state.teamMatchSuggestions || []).filter(item => item.status !== 'Freigegeben').length,
-    scheduling: (state.deploymentPlans || []).filter(item => item.status !== 'Freigegeben').length,
-    offline: Number(state.pendingOfflineChanges || 0),
-    translation: (state.operations?.projectMessages || []).filter(item => item.translatedBody).length,
-    deviations: (state.deviationCases || []).filter(item => item.status !== 'Erledigt').length,
-    billing: (state.automatedInvoices || []).filter(item => item.status === 'Abrechnungsbereit').length,
-    livefile: (state.operations?.projectMessages || []).length + (state.photoGateAssessments || []).length,
-    academy: (state.academyRecommendations || []).filter(item => item.status !== 'In Arbeit').length,
-    morning: smartCriticalCount()
-  };
-  return maps[id] || 0;
-}
-
-function renderSmartOperations() {
-  setPageMeta('BÜLOW & DOLZ INTELLIGENCE', 'Operatives Kontrollzentrum');
-  const readyVolume = (state.automatedInvoices || []).filter(item => ['Abrechnungsbereit','Freigegeben'].includes(item.status)).reduce((sum,item) => sum + Number(item.amount || 0),0);
-  return `
-    <section class="smart-hero">
-      <span class="eyebrow" style="color:#fff">MORNING CONTROL · LIVE</span>
-      <h2>${timeGreeting()}</h2>
-      <p>Die wichtigsten Entscheidungen aus Projekten, Qualität, Disposition und Abrechnung. Automationen führen kritische Schritte nur nach einer sichtbaren Freigabe aus.</p>
-      <div class="smart-metrics">
-        <div class="smart-metric"><strong>${smartCriticalCount()}</strong><span>Kritische Vorgänge</span></div>
-        <div class="smart-metric"><strong>${(state.autopilotProposals || []).filter(item => item.status !== 'Ausgeführt').length}</strong><span>Autopilot wartet</span></div>
-        <div class="smart-metric"><strong>${activeAssignments().length}</strong><span>Aktive Montagen</span></div>
-        <div class="smart-metric"><strong>${money(readyVolume)}</strong><span>Abrechnungsbereit</span></div>
-      </div>
-    </section>
-    <section class="section">
-      <div class="section-header"><div><h2>Flex Intelligence</h2><p>Zwölf Arbeitsbereiche, ein synchronisierter Projektstand.</p></div><span class="status-pill ${state.offlineModeEnabled ? 'amber' : 'green'}">${BackendWorkspace.enabled ? 'Web · Server-Testbetrieb' : state.offlineModeEnabled ? `Offline · ${state.pendingOfflineChanges || 0} lokal` : 'App & Web verbunden'}</span></div>
-      <div class="smart-module-grid">${smartModules.map(module => `
-        <button class="smart-module" data-action="smart-module" data-module="${module.id}">
-          <div class="smart-module-head"><span class="smart-module-icon">${icon(module.icon,19)}</span><span class="status-pill ${smartModuleCount(module.id) ? 'amber' : 'green'}">${smartModuleCount(module.id)}</span></div>
-          <h3>${module.title}</h3><p>${module.detail}</p>
-          <footer><span>ÖFFNEN</span><span>${icon('arrow-up-right',13)}</span></footer>
-        </button>`).join('')}</div>
-    </section>`;
-}
 
 function smartTone(status) {
   if (['Bestanden','Freigegeben','Ausgeführt','Erledigt','Ausgezahlt'].includes(status)) return 'green';
@@ -98,7 +49,6 @@ function smartModuleBody(module) {
     case 'billing': return smartRows(state.automatedInvoices || [],'automatedInvoices',(item) => `<div class="smart-score">${money(item.amount)}</div><p>QM-Qualitätsscore: ${item.qualityScore} %</p>${item.status === 'Abrechnungsbereit' ? smartActionButton('Auszahlung freigeben','automatedInvoices',item.id,'Freigegeben','billing') : ''}`);
     case 'livefile': return renderLiveProjectFile();
     case 'academy': return smartRows(state.academyRecommendations || [],'academyRecommendations',(item) => `${smartActionButton('Training zuweisen','academyRecommendations',item.id,'In Arbeit','academy')}`);
-    case 'morning': return `<div class="grid four">${metricCard('alert',String(smartCriticalCount()),'Kritische Vorgänge','Sofort','red')}${metricCard('users',String((state.teamMatchSuggestions || []).length),'Team-Matches','Heute','green')}${metricCard('refresh',String((state.operations?.importCandidates || []).filter(item => item.status !== 'Importiert').length),'Importprüfung','Pipedrive / Locatick','amber')}${metricCard('euro',money((state.automatedInvoices || []).filter(item => item.status === 'Abrechnungsbereit').reduce((sum,item)=>sum+item.amount,0)),'Freigabevolumen','Nach QM','green')}</div>${smartRows((state.deviationCases || []).filter(item => item.status !== 'Erledigt'),'deviationCases',(item)=>smartActionButton('Entscheiden','deviationCases',item.id,'Erledigt','morning'))}`;
     default: return '';
   }
 }

@@ -34,6 +34,9 @@ const ICONS = {
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   truck: '<path d="M3 6h11v10H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',
+  'face-happy': '<circle cx="12" cy="12" r="9"/><path d="M8.5 14.2a4.6 4.6 0 0 0 7 0"/><path d="M9 9.6h.01M15 9.6h.01"/>',
+  'face-neutral': '<circle cx="12" cy="12" r="9"/><path d="M8.6 15h6.8"/><path d="M9 9.6h.01M15 9.6h.01"/>',
+  'face-sad': '<circle cx="12" cy="12" r="9"/><path d="M8.5 16.2a4.6 4.6 0 0 1 7 0"/><path d="M9 9.6h.01M15 9.6h.01"/>',
   home: '<path d="m3 11 9-8 9 8"/><path d="M5 10v11h14V10M9 21v-7h6v7"/>',
   hammer: '<path d="m14 4 6 6M17 3l4 4-3 3-4-4zM13 7 4 16l4 4 9-9"/>',
   signature: '<path d="M3 21c3-6 6-9 8-8s-2 5 0 6 4-4 6-3-1 4 4 2"/>',
@@ -52,6 +55,8 @@ const ICONS = {
   refresh: '<path d="M20 11a8 8 0 1 0 2 5M20 4v7h-7"/>',
   'arrow-right': '<path d="M5 12h14M13 6l6 6-6 6"/>',
   'file-check': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 15l2 2 4-4"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
   'hard-hat': '<path d="M4 14a8 8 0 0 1 16 0M2 14h20v4H2zM8 14V7M16 14V7"/>'
 };
 

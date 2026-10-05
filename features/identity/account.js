@@ -247,7 +247,8 @@ function handleSetupAction(action, target) {
 
 function showAccountManagement() {
   if (BackendWorkspace.enabled) {
-    openModal({eyebrow:'SERVERKONTO',title:'Gemeinsamer Testzugang',body:'<p>Dieses Konto gehört zum lokalen Testserver. Alle angemeldeten Geräte teilen denselben Arbeitsstand. Die Rollen-Auswahl ist eine Ansichtsvorschau, keine Rechtevergabe.</p><p>Das Serverpasswort wird am Mac mit dem Befehl backend.command password geändert.</p>',footer:'<button class="button danger" data-action="web-signout">Abmelden</button>'});
+    const user=BD_BACKEND.user || {name:BD_BACKEND.displayName,roleLabel:'Gemeinsames Testkonto'}, t=I18n.t;
+    openModal({eyebrow:t('SERVERKONTO'),title:user.name,body:`<div class="detail-grid"><div class="detail-block"><span>${t('Rolle auf dem Server')}</span><strong>${escapeAttr(t(user.roleLabel))}</strong></div><div class="detail-block"><span>${t('Technische Freigabe')}</span><strong>${t(BD_BACKEND.permissions?.decideAcceptance ? 'Erlaubt' : 'Nicht erlaubt')}</strong></div></div><p>${t('Der Server prüft Rollen bei Elektro-Abnahmen und Aufträgen. Alle übrigen Bereiche teilen alle Konten weiterhin als gemeinsamen Arbeitsstand; die Rollen-Auswahl ist dort nur eine Ansichtsvorschau.')}</p><p>${t('Konten und Passwörter werden am Mac mit backend.command verwaltet.')}</p>`,footer:`<button class="button danger" data-action="web-signout">${t('Abmelden')}</button>`});
     return;
   }
   const setup = state.initialSetup;
