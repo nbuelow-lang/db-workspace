@@ -1,0 +1,18 @@
+/* Bülow & Dolz Academy (academy.js). */
+.academy-page { display: grid; gap: 24px; padding-bottom: 32px; }
+.academy-hero h2 { margin: 8px 0 6px; font-size: 26px; }
+.academy-hero p { margin: 0; max-width: 680px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.academy-guides { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.academy-guide { display: grid; align-content: start; gap: 12px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); min-width: 0; }
+.academy-guide header { display: grid; grid-template-columns: 40px minmax(0,1fr); gap: 12px; align-items: start; }
+.academy-guide h3 { margin: 0; font-size: 15px; line-height: 1.35; overflow-wrap: anywhere; }
+.academy-icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--surface-3); color: var(--brand); }
+.academy-roles { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; }
+.academy-roles span { padding: 2px 8px; border-radius: 99px; background: var(--surface-3); color: var(--muted); font-size: 11px; font-weight: 600; }
+.academy-guide ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; font-size: 13px; line-height: 1.55; }
+.academy-guide .button { justify-self: start; min-height: 44px; }
+.academy-hint { margin: 0; color: var(--muted); font-size: 12px; }
+.academy-training { padding: 18px; border: 1px dashed var(--line); border-radius: 16px; }
+.academy-training h3 { margin: 0 0 6px; font-size: 15px; }
+html[data-theme="light"] .academy-icon { color: #4d5a00; }
+@media (max-width: 520px) { .academy-guides { grid-template-columns: minmax(0,1fr); } .academy-guide { padding: 16px 14px; } }

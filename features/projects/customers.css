@@ -1,0 +1,15 @@
+/* Kunden (customers.js). Reuses avatar, row and mood styles from project-ring.css. */
+.cu-view { --mood-zufrieden: #2fbf71; --mood-neutral: #7d8aa0; --mood-angespannt: #e5484d; }
+.cu-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 24px; align-items: start; }
+.cu-search { width: 100%; margin-bottom: 4px; }
+.cu-list, .cu-orders { display: grid; }
+.cu-detail { position: sticky; top: calc(var(--language-bar-offset, 50px) + 90px); display: grid; gap: 12px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.cu-detail header { display: grid; grid-template-columns: 48px minmax(0, 1fr) 44px; gap: 12px; align-items: center; }
+.cu-detail h3 { margin: 0; font-size: 17px; overflow-wrap: anywhere; }
+.cu-detail header p { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+.cu-detail h4 { margin: 4px 0 0; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.cu-detail .so-dl { margin: 0; }
+.cu-detail .so-dl a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.cu-orders .pr-row-meta { flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 900px) { .cu-layout { grid-template-columns: minmax(0, 1fr); } .cu-detail { position: static; } }
+@media (max-width: 520px) { .cu-detail { padding: 14px; } .cu-orders .pr-row { flex-wrap: wrap; } .cu-orders .pr-row-meta { width: 100%; justify-content: flex-start; } }

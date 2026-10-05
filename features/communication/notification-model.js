@@ -4,7 +4,8 @@ const NotificationCenterModel = (() => {
     werkraum: {name:'Anfragen',icon:'briefcase'}, control:{name:'Projekte',icon:'layers'},
     acceptance:{name:'Abnahmen',icon:'clipboard-check'}, chats:{name:'Nachrichten',icon:'mail'},
     finance:{name:'Finanzen',icon:'euro'}, partners:{name:'Partner',icon:'users'},
-    smartops:{name:'Assistenz',icon:'zap'}, imports:{name:'Import',icon:'upload'}
+    smartops:{name:'Morning Control',icon:'bar-chart'}, instruments:{name:'Prüfmittel',icon:'gauge'}, time:{name:'Arbeitszeit',icon:'clock'}, imports:{name:'Import',icon:'upload'},
+    orders:{name:'Aufträge',icon:'hard-hat'}
   };
   const priority = value => ({Kritisch:3,Dringend:2,Wichtig:1,Hoch:1}[value] || 0);
   const label = rank => ['Normal','Wichtig','Dringend','Kritisch'][rank];
@@ -13,7 +14,8 @@ const NotificationCenterModel = (() => {
     if (typeof value === 'number') return value > 1e12 ? value : (value + (value < 1e9 ? 978307200 : 0))*1000;
     return Date.parse(value) || 0;
   }
-  function entries(state, queue=[]) {
+  // tasks: prepared rows (server job steps assigned to the signed-in person).
+  function entries(state, queue=[], tasks=[]) {
     const result=[], seen=new Set(), linked=new Set();
     const currentName=state.initialSetup?.fullName;
     const messages=state.operations?.projectMessages || [];
@@ -60,6 +62,7 @@ const NotificationCenterModel = (() => {
       if (['Freigegeben','Abgeschlossen','Bestanden'].includes(a.status)) continue;
       add('acceptance',a,'acceptance',`Abnahme ${a.city || a.id}`,`${a.status || 'Offen'} · ${(a.checks || []).filter(([,ok])=>!ok).length} Prüfpunkte offen`,1,{acceptance:a.id});
     }
+    for (const t of tasks) add('task',t,t.area || 'orders',t.title,t.text,t.rank || 1,t.target || {order:t.orderID});
     for (const invoice of state.automatedInvoices || []) {
       if (invoice.status!=='Abrechnungsbereit') continue;
       add('invoice',invoice,'finance','Abrechnung prüfen',`${invoice.projectID} · ${invoice.status}`,1,{module:'billing'});

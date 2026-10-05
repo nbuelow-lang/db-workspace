@@ -24,12 +24,13 @@ function renderQualityDashboard({preview=false} = {}) {
     </section>
     <section class="section">
       <div class="section-header"><div><h2>Naechste Abnahmen</h2><p>Gemeinsame SHK-/Elektro-Freigabe mit dokumentierter Entscheidung.</p></div><button class="button secondary small" data-action="goto" data-target="acceptance">Alle Abnahmen</button></div>
-      <div class="grid" style="gap:12px">${acceptanceQueue.slice(0, 2).map(acceptanceCard).join('')}</div>
+      <div class="grid" style="gap:12px">${ServerAcceptance.enabled ? ServerAcceptance.cards(2) : acceptanceQueue.slice(0, 2).map(acceptanceCard).join('')}</div>
     </section>
   `;
 }
 
 function renderAcceptance() {
+  if (ServerAcceptance.enabled) return ServerAcceptance.renderView();
   setPageMeta('BÜLOW & DOLZ QUALITY', state.role === 'partner' ? 'Abnahmen & Freigaben' : 'Abnahmequeue');
   return `
     <section class="section" style="margin-top:0">
@@ -46,6 +47,7 @@ function acceptanceCard(item) {
 }
 
 function showAcceptanceDetails(id) {
+  if (ServerAcceptance.enabled) { ServerAcceptance.open(id); return; }
   const item = acceptanceQueue.find((row) => row.id === id);
   if (!item) return;
   const done = item.checks.filter(([, ok]) => ok).length;

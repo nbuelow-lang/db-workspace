@@ -1,0 +1,22 @@
+/* Prüfmittel (instruments.js). */
+.pm-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; max-width: 620px; margin-bottom: 18px; }
+.pm-stat { padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); display: grid; gap: 4px; }
+.pm-stat strong { font-size: 26px; line-height: 1; font-variant-numeric: tabular-nums; }
+.pm-stat span { color: var(--muted); font-size: 12px; font-weight: 600; }
+.pm-stat.tone-red strong { color: #ff8b8f; } .pm-stat.tone-amber strong { color: #f1b64d; } .pm-stat.tone-green strong { color: #2fbf71; }
+.pm-list { display: grid; gap: 10px; }
+.pm-item { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto auto; gap: 14px; align-items: center; padding: 14px 16px; border: 1px solid var(--line); border-left: 4px solid #2fbf71; border-radius: 14px; background: var(--surface); }
+.pm-item.status-abgelaufen { border-left-color: #e5484d; } .pm-item.status-bald { border-left-color: #f1b64d; } .pm-item.status-ausgemustert { border-left-color: var(--line); opacity: .7; }
+.pm-icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--surface-3); color: var(--brand); }
+.pm-icon svg { width: 20px; height: 20px; }
+.pm-copy { display: grid; gap: 2px; min-width: 0; }
+.pm-copy strong { font-size: 14px; overflow-wrap: anywhere; }
+.pm-copy small, .pm-due small { color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+.pm-copy small:empty { display: none; }
+.pm-due { display: grid; justify-items: end; gap: 4px; text-align: right; }
+.pm-item .button { min-height: 44px; }
+.pm-history { margin-top: 12px; }
+.pm-history summary { min-height: 40px; display: flex; align-items: center; font-weight: 700; cursor: pointer; }
+html[data-theme="light"] .pm-stat.tone-red strong { color: #b4232a; } html[data-theme="light"] .pm-stat.tone-amber strong { color: #8a580a; } html[data-theme="light"] .pm-stat.tone-green strong { color: #137a45; }
+html[data-theme="light"] .pm-icon { color: #4d5a00; }
+@media (max-width: 640px) { .pm-item { grid-template-columns: 40px minmax(0, 1fr); } .pm-due { grid-column: 2; justify-items: start; text-align: left; } .pm-item .button { grid-column: 1 / -1; } .pm-summary { gap: 8px; } .pm-stat { padding: 12px; } }

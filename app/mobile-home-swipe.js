@@ -7,35 +7,71 @@ const MobileHomeSwipe = (() => {
   const visible = element => element && !element.hidden && element.getClientRects().length > 0;
   const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function drawLiquid(up, dx, ready) {
+  // Liquid geometry in SVG units (1 unit = 1 CSS px; base center 80/120, resting drop 80/94).
+  // The drop follows the finger sideways almost 1:1 up to the screen edge (soft limit), so it can be played with.
+  let shine, house, wobble = 0, wobbleAngle = 0, spring = null;
+  function sideways(dx) {
+    const bounds = grip.getBoundingClientRect(), center = bounds.x + bounds.width / 2;
+    const limit = Math.max(20, (dx < 0 ? center : innerWidth - center) - 34);
+    return limit * Math.tanh(dx / limit);
+  }
+
+  // The neck tears at 52px stretch in any direction (reconnects below 44px); going home still needs 64px up.
+  const TEAR=52, MEND=44;
+  function drawLiquid(up, dx, ready, {reveal = true, speed = 0, angle = 0, snap = true} = {}) {
     if (reducedMotion()) return;
     const distance=Math.max(0,up), beyondSnap=Math.max(0,distance-64);
-    const p=Math.min(1,distance/64);
-    const x=80+Math.max(-18,Math.min(18,dx*.25));
+    const ox=sideways(dx), x=80+ox;
     // After detaching, follow the finger 1:1 and keep growing without a height cap.
     const y=94-distance*.7-beyondSnap*.3;
-    const baseRadius=ready ? 22+beyondSnap*.12 : 26-4*p, a=36-22*p;
-    const bounds=grip.getBoundingClientRect();
-    HomeReveal.update(distance,bounds.x+bounds.width/2+x-80,bounds.y-98+y,baseRadius);
-    const r=baseRadius;
-    const join=y+baseRadius*.66;
-    const mx=(80+x)/2, my=Math.max(join+3,y+(120-y)*.62), waist=10-8.7*p;
-    const upper=(my-join)*.5, lower=(120-my)*.5;
+    const stretch=Math.hypot(ox,distance*.7);
+    const free=ready || stretch>=(detached ? MEND : TEAR);
+    const p=Math.min(1,stretch/TEAR);
+    const r=free ? 22+beyondSnap*.12 : 26-4*p, a=36-22*p;
+    if (reveal) {
+      const bounds=grip.getBoundingClientRect();
+      HomeReveal.update(distance,bounds.x+bounds.width/2+x-80,bounds.y-98+y,r);
+    }
+    // The puddle slides a little towards the drop.
+    const bx=80+ox*.22, by=120;
+    let ux=x-bx, uy=y-by;
+    const length=Math.hypot(ux,uy)||1; ux/=length; uy/=length;
+    const nx=-uy, ny=ux, h=r*.75;
+    const jx=x-ux*r*.66, jy=y-uy*r*.66;
+    const mx=bx+(x-bx)*.38, my=by+(y-by)*.38, waist=Math.max(1.3,10-8.7*p);
+    const upper=Math.hypot(jx-mx,jy-my)*.5, lower=Math.hypot(mx-bx,my-by)*.5;
+    const P=(px,py)=>`${px.toFixed(2)} ${py.toFixed(2)}`;
     drop.setAttribute('cx',x);drop.setAttribute('cy',y);drop.setAttribute('r',r);
-    // Concave sides form a narrowing neck between the fixed base and the drop.
-    neck.setAttribute('d',`M ${x-r*.75} ${join}
-      C ${x-r*.75} ${join+upper} ${mx-waist} ${my-upper} ${mx-waist} ${my}
-      C ${mx-waist} ${my+lower} ${80-a} ${120-lower} ${80-a} 120
-      Q 80 125 ${80+a} 120
-      C ${80+a} ${120-lower} ${mx+waist} ${my+lower} ${mx+waist} ${my}
-      C ${mx+waist} ${my-upper} ${x+r*.75} ${join+upper} ${x+r*.75} ${join} Z`);
-    neck.style.opacity=ready ? '0' : '1';
-    anchor.setAttribute('rx',ready ? 52 : 52-12*p);
-    anchor.setAttribute('ry',ready ? 3 : 4+2*p);
-    if(ready!==detached) {
+    // Concave sides along the pull direction form a narrowing neck between base and drop.
+    neck.setAttribute('d',`M ${P(jx-nx*h,jy-ny*h)}
+      C ${P(jx-nx*h-ux*upper,jy-ny*h-uy*upper)} ${P(mx-nx*waist+ux*upper,my-ny*waist+uy*upper)} ${P(mx-nx*waist,my-ny*waist)}
+      C ${P(mx-nx*waist-ux*lower,my-ny*waist-uy*lower)} ${P(bx-a,by-lower)} ${P(bx-a,by)}
+      Q ${P(bx,by+5)} ${P(bx+a,by)}
+      C ${P(bx+a,by-lower)} ${P(mx+nx*waist-ux*lower,my+ny*waist-uy*lower)} ${P(mx+nx*waist,my+ny*waist)}
+      C ${P(mx+nx*waist+ux*upper,my+ny*waist+uy*upper)} ${P(jx+nx*h-ux*upper,jy+ny*h-uy*upper)} ${P(jx+nx*h,jy+ny*h)} Z`);
+    neck.style.opacity=free ? '0' : '1';
+    anchor.setAttribute('cx',free ? 80 : bx);
+    anchor.setAttribute('rx',free ? 52 : 52-12*p);
+    anchor.setAttribute('ry',free ? 3 : 4+2*p);
+    // Squash and stretch along the movement, smoothed so the drop wobbles instead of jittering.
+    wobble=wobble*.6+Math.min(.16,speed*.07)*.4;
+    if (speed>.05) wobbleAngle=angle;
+    const deg=wobbleAngle*180/Math.PI;
+    drop.style.transform=wobble>.005 ? `rotate(${deg}deg) scale(${1+wobble},${1-wobble*.8}) rotate(${-deg}deg)` : '';
+    if (house) {
+      // Sized to the drop; gone after about 40px of upward pull or once the drop tears off.
+      const scale=r*.95/18;
+      house.setAttribute('transform',`translate(${(x-12*scale).toFixed(2)} ${(y-12*scale).toFixed(2)}) scale(${scale.toFixed(3)})`);
+      house.style.opacity=free ? '0' : String(Math.max(0,1-distance/40));
+    }
+    if (shine) {
+      shine.setAttribute('cx',x-r*.36);shine.setAttribute('cy',y-r*.4);
+      shine.setAttribute('rx',r*.3);shine.setAttribute('ry',r*.18);
+    }
+    if(free!==detached) {
       drop.getAnimations().forEach(animation=>animation.cancel());
       anchor.getAnimations().forEach(animation=>animation.cancel());
-      if(ready) {
+      if(free && snap) {
         drop.animate([
           {transform:'translateY(3px) scale(.8,1.22)'},
           {transform:'translateY(-5px) scale(1.15,.85)',offset:.45},
@@ -45,7 +81,36 @@ const MobileHomeSwipe = (() => {
           {duration:300,easing:'ease-out'});
       }
     }
-    detached=ready;
+    detached=free;
+  }
+
+  // Released without going home: the drop springs back into the base while the liquid fades out.
+  function springBack(up, dx) {
+    stopSpring();
+    if (reducedMotion() || (Math.abs(up)<4 && Math.abs(dx)<4)) return;
+    const begin=performance.now(), duration=260;
+    const step=now=>{
+      const t=Math.min(1,(now-begin)/duration);
+      // Damped oscillation: overshoots slightly below the rest position, like a settling liquid.
+      const k=Math.exp(-5*t)*Math.cos(t*Math.PI*1.6);
+      drawLiquid(Math.min(63,up)*k,dx*k,false,{reveal:false,snap:false});
+      spring=t<1 ? requestAnimationFrame(step) : null;
+    };
+    spring=requestAnimationFrame(step);
+  }
+  function stopSpring() { if (spring) cancelAnimationFrame(spring); spring=null; }
+
+  // While the finger rests, the squash relaxes back into a round drop.
+  let relaxing=null;
+  function relax() {
+    if (relaxing) return;
+    const step=()=>{
+      relaxing=null;
+      if (!gesture || wobble<=.005) { if(!gesture && drop)drop.style.transform=''; return; }
+      drawLiquid(gesture.up,gesture.dx,gesture.up>=64,{reveal:false});
+      relaxing=requestAnimationFrame(step);
+    };
+    relaxing=requestAnimationFrame(step);
   }
 
   function hasDraft() {
@@ -92,7 +157,8 @@ const MobileHomeSwipe = (() => {
     root()?.style.removeProperty('--home-swipe-lift');
     grip?.classList.remove('is-swiping','is-ready');
     [drop,anchor].forEach(element=>element?.getAnimations().forEach(animation=>animation.cancel()));
-    detached=false;
+    detached=false;wobble=0;
+    if(drop)drop.style.transform='';
   }
 
   function animateContent(frames,options) {
@@ -108,7 +174,9 @@ const MobileHomeSwipe = (() => {
   function settle() {
     const content=root(), wasDragging=content?.classList.contains('home-swipe-dragging');
     const transform=wasDragging ? getComputedStyle(content).transform : 'none';
+    const last=gesture ? {up:gesture.up||0,dx:gesture.dx||0} : null;
     cancel({retract:true});
+    if(last)springBack(last.up,last.dx);
     if(wasDragging && !reducedMotion()) {
       animateContent([{transform},{transform:'translateY(2px)',offset:.75},{transform:'translateY(0)'}],
         {duration:300,easing:'cubic-bezier(.22,1,.36,1)'});
@@ -138,12 +206,16 @@ const MobileHomeSwipe = (() => {
     neck=liquid.querySelector('.home-grip-neck');
     drop=liquid.querySelector('.home-grip-drop');
     anchor=liquid.querySelector('.home-grip-anchor');
+    shine=liquid.querySelector('.home-grip-shine');
+    house=liquid.querySelector('.home-grip-house');
     grip.addEventListener('pointerdown', event => {
       if (event.pointerType === 'mouse' && event.button !== 0) return;
       if (HomeReveal.isCommitting()) return;
       if (!event.isPrimary || gesture) { cancel(); return; }
       if (blocked()) return;
-      gesture = {id:event.pointerId,x:event.clientX,y:event.clientY,view:state.view,distance:0,upward:false};
+      stopSpring();
+      gesture = {id:event.pointerId,x:event.clientX,y:event.clientY,view:state.view,distance:0,up:0,dx:0,
+        last:{x:event.clientX,y:event.clientY,t:event.timeStamp}};
       entrance?.cancel();entrance=null;
       root().classList.remove('home-swipe-animating');
       grip.setPointerCapture(event.pointerId);
@@ -156,20 +228,22 @@ const MobileHomeSwipe = (() => {
       if (!gesture || event.pointerId !== gesture.id) return;
       const dx=event.clientX-gesture.x, up=gesture.y-event.clientY;
       gesture.distance = Math.max(gesture.distance,Math.hypot(dx,up));
-      if (!gesture.upward) {
-        if(up>=8 && up>=Math.abs(dx)*.85)gesture.upward=true;
-        else if (Math.abs(dx)>24 && Math.abs(dx)>Math.abs(up) || up < -16) { settle(); return; }
-      }
-      const ready=gesture.upward && up>=64;
+      // Sideways play is allowed; only a clear downward pull gives up.
+      if (up < -16) { settle(); return; }
+      const last=gesture.last, dt=Math.max(8,event.timeStamp-last.t);
+      const speed=Math.hypot(event.clientX-last.x,event.clientY-last.y)/dt, angle=Math.atan2(event.clientY-last.y,event.clientX-last.x);
+      gesture.last={x:event.clientX,y:event.clientY,t:event.timeStamp};gesture.up=up;gesture.dx=dx;
+      const ready=up>=64;
       grip.classList.toggle('is-ready',ready);
-      drawLiquid(up,dx,ready);
+      drawLiquid(up,dx,ready,{speed,angle});
+      relax();
       root().classList.add('home-swipe-dragging');
       root().style.setProperty('--home-swipe-lift',`${-Math.min(18,Math.max(0,up)*.15)}px`);
     });
     grip.addEventListener('pointerup', event => {
       if (!gesture || event.pointerId !== gesture.id) return;
       const last = gesture, up=last.y-event.clientY, dx=Math.abs(event.clientX-last.x);
-      const ready = last.upward && up>=64 && state.view===last.view;
+      const ready = up>=64 && state.view===last.view;
       const tap = last.distance<8 && Math.hypot(dx,up)<8;
       if (ready) { cancel({preservePreview:true});HomeReveal.commit(goHome); }
       else { settle();if(tap)suppressClick=false; }

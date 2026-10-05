@@ -33,6 +33,11 @@ const syncApiUrl = (BackendWorkspace.enabled || AdminPreview.enabled || isGitHub
 
 WorkspaceArrange.init();
 MobileHomeSwipe.init();
+MobileBack.init();
+Assistant.init();
+ProjectRing.start();
+Customers.start();
+NotificationGestures.init();
 MobileSidebar.init();
 PullRefresh.init();
 document.addEventListener('error', handleWorkspaceImageError, true);
@@ -133,5 +138,5 @@ render();
 
 setInterval(updateTimeGreeting, 60 * 1000);
 
-if (BackendWorkspace.enabled) BackendWorkspace.start();
+if (BackendWorkspace.enabled) { BackendWorkspace.start(); ServerAcceptance.start(); ServerOrders.start(); ServerInstruments.start(); ServerTime.start(); }
 else initializeSharedSync();

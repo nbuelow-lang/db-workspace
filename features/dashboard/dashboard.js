@@ -19,7 +19,7 @@ function timeGreeting(date = new Date()) {
   else if (hour >= 14 && hour < 18) greeting = 'Guten Nachmittag';
   else if (hour >= 18 && hour < 22) greeting = 'Guten Abend';
 
-  return `${greeting}, ${firstName}`;
+  return `${I18n.t(greeting)}, ${firstName}`;
 }
 
 function updateTimeGreeting() {

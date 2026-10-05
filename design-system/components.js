@@ -28,6 +28,7 @@ function criteria(text, ok) { return `<div class="check-item ${ok ? 'ok' : ''}">
 function emptyState(iconName, title, text) { return `<div class="card empty-state"><span class="empty-icon">${icon(iconName,28)}</span><h3>${title}</h3><p>${text}</p></div>`; }
 
 function openModal({ eyebrow = 'BÜLOW & DOLZ', title = 'Details', body = '', footer = '' }) {
+  document.getElementById('modalBackdrop').classList.remove('is-nc');
   document.getElementById('modalEyebrow').textContent = eyebrow;
   document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalBody').innerHTML = body;
@@ -41,6 +42,7 @@ function closeModal() {
   const wasNotificationCenter = Boolean(document.querySelector('.nc-center, .nc-detail'));
   stopRealtimeTranslation();
   document.getElementById('modalBackdrop').hidden = true;
+  document.getElementById('modalBackdrop').classList.remove('is-nc', 'nc-enter');
   document.body.style.overflow = '';
   currentModalProject = null;
   if (wasNotificationCenter) document.getElementById('notificationButton')?.focus({preventScroll:true});

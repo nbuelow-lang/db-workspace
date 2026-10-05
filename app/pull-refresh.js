@@ -4,7 +4,7 @@ const PullRefresh = (() => {
   const resumeKey = 'bd-pull-refresh-view-v1';
   const visible = el => el && !el.hidden && el.getClientRects().length > 0;
   const mobile = () => matchMedia('(max-width: 940px)').matches;
-  const busy = () => !BackendWorkspace.canReload() || !sharedRefreshSafe();
+  const busy = () => !BackendWorkspace.canReload() || !sharedRefreshSafe() || ServerOrders.busy();
   const blocked = () => !mobile() || busy() || MobileHomeSwipe.isActive() ||
     visible(document.getElementById('setupGate')) || visible(document.getElementById('modalBackdrop')) ||
     visible(document.getElementById('languageMenu')) ||
