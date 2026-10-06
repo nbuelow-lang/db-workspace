@@ -104,19 +104,24 @@ const Assistant = (() => {
     dodge();
   }
 
-  // Keeps the button clear of sticky save bars at the bottom of long forms.
+  // Keeps the button clear of sticky save bars and primary actions it would otherwise cover.
   function dodge() {
     if (dodgeFrame || !fab) return;
     dodgeFrame = requestAnimationFrame(() => {
       dodgeFrame = null;
-      fab.style.removeProperty('--assist-lift');
-      const own = fab.getBoundingClientRect();
+      // offset* ignores the running lift transform, so this is the resting position.
+      const left = fab.offsetLeft, right = left + fab.offsetWidth, bottom = fab.offsetTop + fab.offsetHeight, height = fab.offsetHeight;
+      const blockers = [...document.querySelectorAll('.so-savebar, .content .button.primary, .content .focus-primary')]
+        .map(el => el.getBoundingClientRect()).filter(r => r.width && r.right > left && r.left < right);
       let lift = 0;
-      for (const bar of document.querySelectorAll('.so-savebar')) {
-        const r = bar.getBoundingClientRect();
-        if (r.width && r.right > own.left && r.left < own.right && r.bottom > own.top && r.top < own.bottom) lift = Math.max(lift, own.bottom - r.top + 12);
+      // Re-check after each lift so the button does not land on the next action above.
+      for (let pass = 0; pass < 4; pass++) {
+        const hits = blockers.filter(r => r.bottom > bottom - lift - height && r.top < bottom - lift);
+        if (!hits.length) break;
+        lift = Math.max(...hits.map(r => bottom - r.top + 12));
       }
       if (lift) fab.style.setProperty('--assist-lift', `-${Math.round(lift)}px`);
+      else fab.style.removeProperty('--assist-lift');
     });
   }
 
