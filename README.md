@@ -1,13 +1,7 @@
-# Buelow & Dolz - Web Demo
+# Bülow & Dolz
 
-[Open the current test version](https://nbuelow-lang.github.io/db-workspace/?preview=admin&v=20261001-liquid-grip4)
+Public notice page only. The working platform of Bülow & Dolz runs on the
+company's own server and is reachable for staff via the private company network.
 
-Responsive browser-local demonstration with synthetic example data. The admin
-preview is a UI test mode, not authentication or production authorization.
-
-Changes are stored only in the current browser. There is no shared company
-database, local Mac backend, live integration or server-side account management
-on GitHub Pages. Do not enter customer data, passwords or API credentials.
-
-The complete modular web tree is published here. Private data, native iOS source,
-backend storage and credentials are intentionally excluded.
+The former browser demo with sample data was retired on 2026-10-06. No customer,
+employee or business data is published in this repository.
