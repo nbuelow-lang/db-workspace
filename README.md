@@ -1,15 +1,16 @@
-# Bülow & Dolz
+# Bülow Gebäudetechnik
 
-Public customer website of Bülow & Dolz (Elektrotechnik & Installation), served
-via GitHub Pages: services, process, contact request and legal pages.
+Public website of Bülow Gebäudetechnik (formerly Hausmeisterservice Bülow),
+served via GitHub Pages: interactive service house, story of the rename,
+link to the MyHammer reviews, a request wizard and legal pages.
 
-The working platform of Bülow & Dolz runs on the company's own server and is
-reachable for staff via the private company network. No customer, employee or
-business data is published in this repository.
+Static files only: `index.html`, `site.css`, `site.js`, `impressum.html`,
+`datenschutz.html`. The page works without JavaScript; `site.js` adds the
+interactive layer and respects reduced-motion settings.
 
 ## Before going live
 
 Company details are still placeholders, marked in the pages with the class `ph`
 (search for `class="ph"`). Replace them in `index.html`, `impressum.html` and
-`datenschutz.html`, set `REQUEST_EMAIL` in `index.html`, then remove the
+`datenschutz.html`, set `REQUEST_EMAIL` in `site.js`, then remove the
 `noindex` meta tags.
