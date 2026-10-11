@@ -65,6 +65,7 @@ a { color: inherit; }
 .rename .old::after { content: ""; position: absolute; left: 8px; right: 8px; top: 50%; height: 2px; background: var(--accent); transform-origin: left; transform: scaleX(var(--strike, 1)); transition: transform 700ms var(--ease) 500ms; }
 .rename .new { color: var(--ink); font-weight: 650; }
 .rename svg { width: 16px; height: 16px; color: var(--accent); }
+@media (max-width: 560px) { .rename { gap: 6px; padding: 5px 10px 5px 5px; font-size: 12px; border-radius: 14px; } .rename .old { padding: 2px 8px; } .rename svg { width: 14px; height: 14px; } .hero-actions .button { flex: 1 1 auto; } }
 .hero h1 { margin: 0; font-size: clamp(36px, 5.6vw, 64px); line-height: 1.04; letter-spacing: -.025em; text-wrap: balance; }
 .hero h1 em { font-style: normal; color: var(--accent); }
 .hero .lead { margin: 20px 0 30px; max-width: 32em; color: var(--muted); font-size: 18px; }
@@ -87,7 +88,6 @@ a { color: inherit; }
 .house.powered .wire { animation: draw 1400ms var(--ease) forwards; }
 .house .wire.active { opacity: 1; filter: drop-shadow(0 0 6px rgba(226,239,57,.7)); }
 .house .pulse { fill: var(--accent); filter: drop-shadow(0 0 6px rgba(226,239,57,.9)); opacity: 0; }
-.house.powered .pulse { opacity: 1; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 .hotspot { position: absolute; z-index: 2; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; display: grid; place-items: center; -webkit-tap-highlight-color: transparent; }
 .hotspot::before { content: ""; position: absolute; inset: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(226,239,57,.22); transition: transform 220ms var(--ease), box-shadow 220ms; }
@@ -225,6 +225,55 @@ section + section { border-top: 1px solid var(--line); }
 .request-note { margin: 14px 0 0; font-size: 13px; color: var(--muted); }
 @media (max-width: 900px) { .contact { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .wizard { padding: 20px; } .fields { grid-template-columns: 1fr; } .wizard-nav .button { flex: 1; } }
+
+/* Trust strip under the hero copy */
+.trust-strip { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 26px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--muted); }
+.trust-strip li, .trust-strip a { display: inline-flex; align-items: center; gap: 8px; }
+.trust-strip a { color: var(--ink); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(226,239,57,.4); }
+.trust-strip a:hover { border-bottom-color: var(--accent); }
+.trust-strip svg { width: 17px; height: 17px; flex: 0 0 auto; color: var(--accent); }
+
+/* Audiences */
+.audiences { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.audience { display: flex; flex-direction: column; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.audience.featured { border-color: rgba(226,239,57,.45); background: linear-gradient(160deg, rgba(226,239,57,.08), transparent 60%), var(--surface); }
+.audience .icon { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 18px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); }
+.audience .icon svg { width: 24px; height: 24px; }
+.audience h3 { margin: 0 0 8px; font-size: 19px; }
+.audience p { margin: 0 0 20px; color: var(--muted); }
+.text-link { margin-top: auto; color: var(--accent); font-weight: 650; text-decoration: none; }
+.text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 900px) { .audiences { grid-template-columns: 1fr; } .audience { padding: 22px; } }
+
+/* FAQ */
+.faq-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; align-items: start; }
+.faq { display: grid; gap: 10px; }
+.faq details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.faq details[open] { border-color: #3b4649; }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 14px 20px; font-weight: 650; cursor: pointer; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; flex: 0 0 auto; width: 10px; height: 10px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(45deg) translate(-2px, -2px); transition: transform 200ms var(--ease); }
+.faq details[open] summary::after { transform: rotate(225deg) translate(-2px, -2px); }
+.faq details p { margin: 0; padding: 0 20px 18px; color: var(--muted); }
+@media (max-width: 900px) { .faq-wrap { grid-template-columns: 1fr; gap: 0; } }
+
+/* Contact additions */
+.contact-info a { color: inherit; text-decoration: none; }
+.contact-info a:hover { color: var(--accent); }
+.contact-promise { border-style: dashed !important; background: transparent !important; }
+.contact-promise span { font-size: 15px !important; font-weight: 500 !important; color: var(--muted); }
+.field-label { font-size: 14px; font-weight: 600; color: var(--muted); }
+.field-hint { font-size: 13px; color: var(--muted); }
+.chips.small .chip span { min-height: 40px; padding: 8px 14px; font-size: 14px; }
+
+/* Mobile quick-contact bar */
+.action-bar { display: none; }
+@media (max-width: 720px) {
+  .js .action-bar { display: flex; gap: 10px; position: fixed; z-index: 30; left: 0; right: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(8,11,12,.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform 300ms var(--ease); }
+  .js .action-bar.show { transform: none; }
+  .action-bar .button { flex: 1; }
+  .js body { padding-bottom: 76px; }
+}
 
 /* Scroll reveal: only hidden when JS runs and motion is welcome. */
 .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); transition-delay: var(--d, 0ms); }

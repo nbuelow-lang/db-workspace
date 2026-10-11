@@ -12,5 +12,5 @@ interactive layer and respects reduced-motion settings.
 
 Company details are still placeholders, marked in the pages with the class `ph`
 (search for `class="ph"`). Replace them in `index.html`, `impressum.html` and
-`datenschutz.html`, set `REQUEST_EMAIL` in `site.js`, then remove the
+`datenschutz.html`, fill in `CONTACT` at the top of `site.js` (phone, e-mail, region), then remove the
 `noindex` meta tags.

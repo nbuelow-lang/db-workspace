@@ -1,11 +1,39 @@
 // Bülow Gebäudetechnik – interactions. The page works without this file; it only adds the experience on top.
 (() => {
-  const REQUEST_EMAIL = ''; // TODO: company e-mail address for requests, e.g. 'anfrage@…'
+  // Company contact details – the only place they need to be entered. Empty values hide the matching UI.
+  const CONTACT = {
+    phone: '',  // e.g. '030 1234567'
+    email: '',  // address the request wizard sends to, e.g. 'anfrage@…'
+    region: '', // e.g. 'Berlin und Umgebung'
+  };
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
   $('#year').textContent = new Date().getFullYear();
+
+  // Fill or hide contact details depending on what is configured above.
+  const fill = (key, value) => $$(`[data-contact="${key}"]`).forEach(el => { el.textContent = value; el.classList.remove('ph'); });
+  if (CONTACT.phone) {
+    fill('phone', CONTACT.phone);
+    $$('[data-contact="phone-link"]').forEach(a => { a.href = 'tel:' + CONTACT.phone.replace(/[^+\d]/g, ''); a.hidden = false; });
+    $$('[data-contact="no-phone"]').forEach(el => { el.hidden = true; });
+  }
+  if (CONTACT.email) {
+    fill('email', CONTACT.email);
+    $$('[data-contact="email-link"]').forEach(a => { a.href = 'mailto:' + CONTACT.email; });
+  }
+  if (CONTACT.region) fill('region', CONTACT.region);
+  Object.keys(CONTACT).forEach(key => { if (!CONTACT[key]) $$(`[data-contact-row="${key}"]`).forEach(row => { row.hidden = true; }); });
+
+  // Mobile quick-contact bar: visible once the hero is behind you, hidden again at the contact section.
+  const bar = $('#action-bar'), hero = $('.hero'), contactSection = $('#kontakt');
+  if (bar && 'IntersectionObserver' in window) {
+    const state = { hero: true, contact: false };
+    const update = () => bar.classList.toggle('show', !state.hero && !state.contact);
+    new IntersectionObserver(([e]) => { state.hero = e.isIntersecting; update(); }).observe(hero);
+    new IntersectionObserver(([e]) => { state.contact = e.isIntersecting; update(); }, { rootMargin: '0px 0px -30% 0px' }).observe(contactSection);
+  }
 
   // Scroll reveal
   const reveals = $$('.reveal');
@@ -35,7 +63,7 @@
   let pulseFrame = null;
   function runPulse(path) {
     cancelAnimationFrame(pulseFrame);
-    if (!path || reduceMotion) { pulse.setAttribute('cx', -20); return; }
+    if (!path || reduceMotion) { pulse.style.opacity = 0; return; }
     const length = path.getTotalLength(), duration = Math.max(700, length * 3.2);
     let start = null;
     const step = now => {
@@ -127,6 +155,18 @@
     if (event.target.type === 'radio' && i === current) setTimeout(() => show(current + 1), reduceMotion ? 0 : 280);
   }));
 
+  // The preferred time only matters for a call back.
+  const replyTime = $('[data-reply-time]', form);
+  const syncReply = () => { replyTime.hidden = values('reply')[0] !== 'Rückruf'; };
+  $$('[name="reply"]', form).forEach(input => input.addEventListener('change', syncReply));
+  syncReply();
+
+  // Audience links preselect the property type and start with the first question.
+  $$('[data-property]').forEach(link => link.addEventListener('click', () => {
+    $$('[name="property"]', form).forEach(input => { input.checked = input.value === link.dataset.property; });
+    show(0, { focus: false });
+  }));
+
   // "Dazu anfragen" on a service preselects it and starts at the next question.
   $$('[data-request]').forEach(link => link.addEventListener('click', () => {
     $$('[name="topic"]', form).forEach(input => { if (input.value === link.dataset.request) input.checked = true; });
@@ -136,7 +176,12 @@
   form.addEventListener('submit', event => {
     event.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
-    if (!REQUEST_EMAIL) { note.textContent = 'Die E-Mail-Adresse für Anfragen wird gerade eingerichtet. Bitte rufen Sie uns an oder versuchen Sie es später erneut.'; return; }
+    if (!CONTACT.email) {
+      note.textContent = CONTACT.phone
+        ? `Die Anfrage per E-Mail wird gerade eingerichtet. Rufen Sie uns gern direkt an: ${CONTACT.phone}`
+        : 'Die Anfrage per E-Mail wird gerade eingerichtet. Bitte versuchen Sie es in Kürze erneut.';
+      return;
+    }
     const data = new FormData(form);
     const body = [
       `Anliegen: ${values('topic').join(', ') || '–'}`,
@@ -146,11 +191,12 @@
       `Name: ${data.get('name')}`,
       `Kontakt: ${data.get('contact')}`,
       `PLZ / Ort: ${data.get('place') || '–'}`,
+      `Rückmeldung per: ${values('reply')[0] || '–'}${values('reply')[0] === 'Rückruf' ? ` (${values('time')[0] || 'egal'})` : ''}`,
       '',
       data.get('message') || ''
     ].join('\n');
     const subject = 'Anfrage: ' + (values('topic')[0] || 'Allgemein');
-    location.href = `mailto:${REQUEST_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 
   show(0, { focus: false });

@@ -11,7 +11,7 @@
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="apple-mobile-web-app-title" content="Bülow Gebäudetechnik">
-  <link rel="stylesheet" href="site.css?v=2">
+  <link rel="stylesheet" href="site.css?v=3">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -27,6 +27,7 @@
         <a href="#leistungen">Leistungen</a>
         <a href="#ueber-uns">Über uns</a>
         <a href="#bewertungen">Bewertungen</a>
+        <a href="#fragen">FAQ</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
       <a class="button primary" href="#anfrage">Anfrage stellen</a>
@@ -42,15 +43,23 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             <span class="new" aria-hidden="true">Bülow Gebäudetechnik</span>
           </p>
-          <h1>Ihr Gebäude. <em>Unter Strom</em> und in guten Händen.</h1>
-          <p class="lead">Neuer Name, vertrautes Team: Aus Hausmeisterservice Bülow ist Bülow Gebäudetechnik geworden. Wir planen, installieren und prüfen Ihre Elektrotechnik – und kümmern uns weiter um Ihr Objekt.</p>
+          <h1>Elektrotechnik und Objektbetreuung. <em>Aus einer Hand.</em></h1>
+          <p class="lead">Wir sind Bülow Gebäudetechnik – bis vor kurzem Hausmeisterservice Bülow. Weil wir Gebäude nicht nur reparieren, sondern betreuen, kennen wir ihre Technik: vom Zählerschrank bis zur Wallbox, vom Kontrollgang bis zum Prüfprotokoll.</p>
           <div class="hero-actions">
-            <a class="button primary" href="#anfrage">Anfrage stellen
+            <a class="button primary" href="#anfrage">Unverbindlich anfragen
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
-            <a class="button" href="#leistungen">Leistungen entdecken</a>
+            <a class="button" href="tel:" data-contact="phone-link" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+              <span data-contact="phone">Anrufen</span>
+            </a>
+            <a class="button" href="#leistungen" data-contact="no-phone">Leistungen entdecken</a>
           </div>
-          <p class="hero-hint">Tippen Sie auf einen Punkt im Haus – wir zeigen, was wir dort für Sie tun.</p>
+          <ul class="trust-strip" aria-label="Darauf können Sie sich verlassen">
+            <li><a href="https://www.my-hammer.de/auftragnehmer/hausmeisterservice-buelow/bewertungen" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>Bewertet auf MyHammer</a></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>Ein fester Ansprechpartner</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg>Angebot vor Beginn, Protokoll danach</li>
+          </ul>
         </div>
 
         <div class="explorer-stage">
@@ -94,10 +103,40 @@
             <button class="hotspot" type="button" data-service="service" style="left:64.17%;top:84.55%;--delay:1.7s" aria-pressed="false"><span class="visually-hidden">Service &amp; Störungen</span></button>
             <button class="hotspot" type="button" data-service="wallbox" style="left:90.83%;top:71.36%;--delay:2s" aria-pressed="false"><span class="visually-hidden">Wallbox &amp; E-Mobilität</span></button>
           </div>
-          <p id="house-caption" aria-live="polite">Sieben Bereiche, ein Ansprechpartner.</p>
+          <p id="house-caption" aria-live="polite">Tippen Sie auf einen Punkt im Haus – wir zeigen, was wir dort für Sie tun.</p>
         </div>
       </div>
     </div>
+
+    <section id="fuer-wen">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Für wen wir arbeiten</p>
+          <h2>Wer Ihr Gebäude betreut, sollte seine Technik kennen</h2>
+          <p>Oft sind Hausmeister und Elektriker zwei verschiedene Firmen. Bei uns ist es ein Team – das spart Abstimmung, Termine und Wege.</p>
+        </div>
+        <ul class="audiences">
+          <li class="audience reveal">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></span>
+            <h3>Eigentümer &amp; Bauherren</h3>
+            <p>Modernisierung, Wallbox oder Photovoltaik: ein Ansprechpartner von der ersten Besichtigung bis zur Abnahme.</p>
+            <a class="text-link" href="#anfrage" data-property="Einfamilienhaus">Als Eigentümer anfragen →</a>
+          </li>
+          <li class="audience featured reveal" style="--d:100ms">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg></span>
+            <h3>Hausverwaltungen &amp; Vermieter</h3>
+            <p>Objektbetreuung und Elektrotechnik aus einer Hand: Kontrollgänge, Kleinreparaturen und Prüfungen beim Mieterwechsel.</p>
+            <a class="text-link" href="#anfrage" data-property="Mehrfamilienhaus / Hausverwaltung">Als Verwaltung anfragen →</a>
+          </li>
+          <li class="audience reveal" style="--d:200ms">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6M9 10h6"/></svg></span>
+            <h3>Gewerbe</h3>
+            <p>Installation, Erweiterung und Prüfung Ihrer Anlagen – planbar, im laufenden Betrieb und sauber dokumentiert.</p>
+            <a class="text-link" href="#anfrage" data-property="Gewerbe">Als Gewerbe anfragen →</a>
+          </li>
+        </ul>
+      </div>
+    </section>
 
     <section id="leistungen">
       <div class="wrap">
@@ -230,6 +269,38 @@
       </div>
     </section>
 
+    <section id="fragen">
+      <div class="wrap faq-wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Häufige Fragen</p>
+          <h2>Gut zu wissen, bevor Sie anfragen</h2>
+          <p>Ihre Frage ist nicht dabei? Schreiben Sie sie einfach in Ihre Anfrage.</p>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>Was passiert nach meiner Anfrage?</summary>
+            <p>Wir melden uns bei Ihnen, klären offene Fragen und vereinbaren bei Bedarf einen Termin vor Ort. Danach erhalten Sie ein nachvollziehbares Angebot – erst wenn Sie zustimmen, legen wir los.</p>
+          </details>
+          <details>
+            <summary>Warum heißen Sie jetzt Bülow Gebäudetechnik?</summary>
+            <p>Bis vor kurzem waren wir Hausmeisterservice Bülow. Weil immer mehr Aufträge Elektrotechnik und Energie betrafen, passt der neue Name besser zu dem, was wir tun. Team und Ansprechpartner bleiben gleich; unsere Bewertungen finden Sie auf MyHammer noch unter dem bisherigen Namen.</p>
+          </details>
+          <details>
+            <summary>Arbeiten Sie auch für Hausverwaltungen?</summary>
+            <p>Ja. Gerade dort zahlt sich aus, dass Objektbetreuung und Elektrotechnik bei uns zusammengehören: ein Ansprechpartner für Kontrollgänge, Kleinreparaturen und Arbeiten an der Elektrik.</p>
+          </details>
+          <details>
+            <summary>Muss eine Wallbox angemeldet werden?</summary>
+            <p>Ja, Ladeeinrichtungen müssen beim Netzbetreiber angemeldet werden; ab mehr als 11 kW ist zusätzlich eine Genehmigung nötig. Das übernehmen wir für Sie – zusammen mit der Prüfung, ob Ihr Hausanschluss die Leistung hergibt.</p>
+          </details>
+          <details>
+            <summary>Was hilft Ihnen für ein schnelles Angebot?</summary>
+            <p>Eine kurze Beschreibung, die Adresse und – wenn möglich – Fotos vom Zählerschrank oder der betroffenen Stelle. Die Fotos können Sie einfach an die E-Mail anhängen, die der Anfrage-Assistent für Sie vorbereitet.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <section id="kontakt">
       <div class="wrap">
         <div class="section-head reveal">
@@ -239,17 +310,21 @@
         </div>
         <div class="contact">
           <ul class="contact-info reveal">
-            <li>
+            <li data-contact-row="phone">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-              <div><strong>Telefon</strong><span class="ph">[Telefonnummer]</span></div>
+              <div><strong>Telefon</strong><a href="tel:" data-contact="phone-link"><span class="ph" data-contact="phone">[Telefonnummer]</span></a></div>
             </li>
-            <li>
+            <li data-contact-row="email">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-              <div><strong>E-Mail</strong><span class="ph">[E-Mail-Adresse]</span></div>
+              <div><strong>E-Mail</strong><a href="mailto:" data-contact="email-link"><span class="ph" data-contact="email">[E-Mail-Adresse]</span></a></div>
             </li>
-            <li>
+            <li data-contact-row="region">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <div><strong>Einsatzgebiet</strong><span class="ph">[Ort / Region]</span></div>
+              <div><strong>Einsatzgebiet</strong><span class="ph" data-contact="region">[Ort / Region]</span></div>
+            </li>
+            <li class="contact-promise">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <div><strong>Unverbindlich</strong><span>Ihre Anfrage verpflichtet zu nichts. Sie entscheiden nach dem Angebot.</span></div>
             </li>
           </ul>
 
@@ -292,7 +367,21 @@
                 <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
                 <div class="field"><label for="f-contact">Telefon oder E-Mail</label><input id="f-contact" name="contact" autocomplete="email" required></div>
                 <div class="field wide"><label for="f-place">PLZ / Ort</label><input id="f-place" name="place" autocomplete="postal-code"></div>
-                <div class="field wide"><label for="f-message">Ihre Nachricht</label><textarea id="f-message" name="message" placeholder="Was soll gemacht werden? Gibt es einen Wunschtermin?"></textarea></div>
+                <div class="field wide"><span class="field-label" id="l-reply">Wie sollen wir uns melden?</span>
+                  <div class="chips small" role="group" aria-labelledby="l-reply">
+                    <label class="chip"><input type="radio" name="reply" value="Rückruf" checked><span>Rückruf</span></label>
+                    <label class="chip"><input type="radio" name="reply" value="E-Mail"><span>E-Mail</span></label>
+                  </div>
+                </div>
+                <div class="field wide" data-reply-time><span class="field-label" id="l-time">Am besten erreichbar</span>
+                  <div class="chips small" role="group" aria-labelledby="l-time">
+                    <label class="chip"><input type="radio" name="time" value="Vormittags"><span>Vormittags</span></label>
+                    <label class="chip"><input type="radio" name="time" value="Nachmittags"><span>Nachmittags</span></label>
+                    <label class="chip"><input type="radio" name="time" value="Egal" checked><span>Egal</span></label>
+                  </div>
+                </div>
+                <div class="field wide"><label for="f-message">Ihre Nachricht</label><textarea id="f-message" name="message" placeholder="Was soll gemacht werden? Gibt es einen Wunschtermin?"></textarea>
+                  <small class="field-hint">Tipp: Fotos vom Zählerschrank oder der betroffenen Stelle können Sie an die vorbereitete E-Mail anhängen.</small></div>
                 <label class="consent"><input type="checkbox" name="consent" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
               </div>
             </fieldset>
@@ -308,6 +397,14 @@
     </section>
   </main>
 
+  <div class="action-bar" id="action-bar" aria-label="Schnellkontakt">
+    <a class="button" href="tel:" data-contact="phone-link" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+      Anrufen
+    </a>
+    <a class="button primary" href="#anfrage">Unverbindlich anfragen</a>
+  </div>
+
   <footer class="site-footer">
     <div class="wrap">
       <span>© <span id="year">2026</span> Bülow Gebäudetechnik · vormals Hausmeisterservice Bülow</span>
@@ -316,6 +413,6 @@
     </div>
   </footer>
 
-  <script src="site.js?v=2"></script>
+  <script src="site.js?v=3"></script>
 </body>
 </html>
